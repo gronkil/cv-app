@@ -16,7 +16,7 @@ export interface ExperienceEntry {
   role: string
   startDate: string
   endDate: string
-  description: string
+  description: string[]
 }
 
 export interface EducationEntry {
@@ -31,7 +31,8 @@ export interface EducationEntry {
 export interface SkillEntry {
   id: string
   name: string
-  level: 1 | 2 | 3 | 4 | 5
+  level: number
+  category: string
 }
 
 export interface LanguageEntry {
@@ -40,10 +41,20 @@ export interface LanguageEntry {
   level: string
 }
 
+export interface ProjectEntry {
+  id: string
+  name: string
+  tech: string
+  description: string[]
+  url?: string
+}
+
 export interface CvData {
   personal: PersonalInfo
   experience: ExperienceEntry[]
   education: EducationEntry[]
   skills: SkillEntry[]
   languages: LanguageEntry[]
+  interests: string[]
+  projects: ProjectEntry[]
 }

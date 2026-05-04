@@ -1,17 +1,52 @@
-@import "tailwindcss";
+*, *::before, *::after { box-sizing: border-box; }
 
-@layer base {
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background-color: #F5F4F0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media print {
+  *,
+  *::before,
+  *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
 
   body {
-    background-color: #F5F4F0;
-    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    color: #1C2333;
+    background: white !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
-  @media print {
-    body { background: white; }
-    .no-print { display: none !important; }
+  body > * { display: none !important; }
+  body > div > * { display: none !important; }
+
+  #cv-document,
+  #cv-document * { display: unset; }
+
+  #cv-document {
+    display: block !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
   }
+
+  #cv-document .MuiGrid-container {
+    display: grid !important;
+    grid-template-columns: 33.33% 66.67% !important;
+  }
+
+  #cv-document .MuiGrid-container > *:nth-child(1) { grid-column: 1 !important; }
+  #cv-document .MuiGrid-container > *:nth-child(2) { grid-column: 2 !important; }
 }
