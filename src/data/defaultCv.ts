@@ -107,5 +107,27 @@ export const cvData: CvData = {
       ],
       url: 'https://github.com/gronkil/agent',
     },
+    {
+      id: 'p2',
+      name: 'Echo-word',
+      tech: 'Kotlin',
+      description: [
+        'Aplikacja zbudowana na własne potrzeby, przy okazji eksploracji architektury multi-agent',
+        'Własny orkiestrator delegujący konkretne zadania do wyspecjalizowanych sub-agentów (substratów)',
+        'Projekt pokazuje praktyczne zrozumienie koordynacji agentów i dekompozycji odpowiedzialności',
+      ],
+      url: 'https://github.com/gronkil/Echo-word',
+    },
+    {
+      id: 'p3',
+      name: 'EVE Sentinel',
+      tech: 'TypeScript · Python · EVE Online ESI API · Push Notifications',
+      description: [
+        'Full-stack system powiadomień push dla graczy EVE Online — frontend TypeScript, backend Python',
+        'Integracja z zewnętrznym API gry (ESI) do monitorowania zdarzeń i wysyłki powiadomień w czasie rzeczywistym',
+        'Projekt pokazuje zdolność do budowania kompletnych, wielowarstwowych systemów z integracją zewnętrznych API',
+      ],
+      url: 'https://github.com/gronkil/eve-sentinel',
+    },
   ],
 }
