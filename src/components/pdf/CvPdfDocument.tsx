@@ -1,5 +1,7 @@
 import { Document, Page, View, Text, StyleSheet, Font, Link } from '@react-pdf/renderer'
 import type { CvData } from '../../types/cv.types'
+import { labels } from '../../i18n/labels'
+import type { Lang } from '../../i18n/labels'
 
 Font.register({
   family: 'Roboto',
@@ -274,9 +276,10 @@ function langPercent(level: string): string {
   return `${map[level] ?? 50}%`
 }
 
-interface Props { data: CvData }
+interface Props { data: CvData; lang: Lang }
 
-export function CvPdfDocument({ data }: Props) {
+export function CvPdfDocument({ data, lang }: Props) {
+  const t = labels[lang]
   const { personal, experience, education, skills, languages, interests, projects } = data
   const categories = [...new Set(skills.map(s => s.category))]
   const initials = personal.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()
@@ -294,7 +297,7 @@ export function CvPdfDocument({ data }: Props) {
             <Text style={s.avatarInitials}>{initials}</Text>
           </View>
 
-          <Text style={s.sidebarSectionLabel}>Dane kontaktowe</Text>
+          <Text style={s.sidebarSectionLabel}>{t.contact}</Text>
           {personal.email && <Text style={s.contactText}>{personal.email}</Text>}
           {personal.phone && <Text style={s.contactText}>{personal.phone}</Text>}
           {personal.location && <Text style={s.contactText}>{personal.location}</Text>}
@@ -304,7 +307,7 @@ export function CvPdfDocument({ data }: Props) {
 
           <View style={s.sidebarDivider} />
 
-          <Text style={s.sidebarSectionLabel}>Umiejętności</Text>
+          <Text style={s.sidebarSectionLabel}>{t.skills}</Text>
           {categories.map(cat => (
             <View key={cat}>
               <Text style={s.categoryLabel}>{cat}</Text>
@@ -320,7 +323,7 @@ export function CvPdfDocument({ data }: Props) {
 
           <View style={s.sidebarDivider} />
 
-          <Text style={s.sidebarSectionLabel}>Języki</Text>
+          <Text style={s.sidebarSectionLabel}>{t.languages}</Text>
           {languages.map(lang => (
             <View key={lang.id}>
               <View style={s.langRow}>
@@ -335,7 +338,7 @@ export function CvPdfDocument({ data }: Props) {
 
           <View style={s.sidebarDivider} />
 
-          <Text style={s.sidebarSectionLabel}>Wykształcenie</Text>
+          <Text style={s.sidebarSectionLabel}>{t.education}</Text>
           {education.map(edu => (
             <View key={edu.id} style={{ marginBottom: 6 }}>
               <Text style={s.eduSchool}>{edu.school}</Text>
@@ -347,7 +350,7 @@ export function CvPdfDocument({ data }: Props) {
           {interests.length > 0 && (
             <>
               <View style={s.sidebarDivider} />
-              <Text style={s.sidebarSectionLabel}>Zainteresowania</Text>
+              <Text style={s.sidebarSectionLabel}>{t.interests}</Text>
               <View style={s.chipsWrap}>
                 {interests.map(item => (
                   <View key={item} style={s.chip}>
@@ -367,7 +370,7 @@ export function CvPdfDocument({ data }: Props) {
 
           <View style={s.mainSectionRow}>
             <View style={s.mainSectionDot} />
-            <Text style={s.mainSectionLabel}>Profil osobisty</Text>
+            <Text style={s.mainSectionLabel}>{t.profile}</Text>
           </View>
           <Text style={s.summary}>{personal.summary}</Text>
 
@@ -375,7 +378,7 @@ export function CvPdfDocument({ data }: Props) {
 
           <View style={s.mainSectionRow}>
             <View style={s.mainSectionDot} />
-            <Text style={s.mainSectionLabel}>Doświadczenie zawodowe</Text>
+            <Text style={s.mainSectionLabel}>{t.experience}</Text>
           </View>
 
           {experience.map((exp, idx) => (
@@ -403,7 +406,7 @@ export function CvPdfDocument({ data }: Props) {
             <View break style={{ paddingTop: 48 }}>
               <View style={s.mainSectionRow}>
                 <View style={s.mainSectionDot} />
-                <Text style={s.mainSectionLabel}>Projekty własne</Text>
+                <Text style={s.mainSectionLabel}>{t.projects}</Text>
               </View>
               {projects.map((proj, idx) => (
                 <View key={proj.id}>
