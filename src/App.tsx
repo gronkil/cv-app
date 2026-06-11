@@ -18,7 +18,7 @@ export default function App() {
   const data = cvByLang[lang]
 
   return (
-    <Box sx={{ bgcolor: 'background.default', minHeight: '100vh', py: { xs: 0, sm: 3, md: 5 } }}>
+    <Box sx={{ bgcolor: 'background.default', minHeight: '100vh', pt: { xs: 0, sm: 3, md: 5 }, pb: { xs: 10, sm: 3, md: 5 } }}>
       <Container maxWidth="lg" sx={{ px: { xs: 0, sm: 2, md: 3 } }}>
         <Box sx={{ display: 'flex', justifyContent: 'flex-end', px: { xs: 2, sm: 0 }, mb: 1.5 }}>
           <ToggleButtonGroup
