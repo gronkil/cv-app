@@ -3,15 +3,18 @@ import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined'
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined'
 import LinkedInIcon from '@mui/icons-material/LinkedIn'
 import type { CvData } from '../../types/cv.types'
+import type { Lang } from '../../i18n/labels'
+import { labels } from '../../i18n/labels'
 
 const GOLD = '#C9A84C'
 const LIGHT = 'rgba(255,255,255,0.85)'
 const DIM = 'rgba(255,255,255,0.70)'
 const DIVIDER = 'rgba(255,255,255,0.15)'
 
-interface Props { data: CvData }
+interface Props { data: CvData; lang: Lang }
 
-export function CvSidebar({ data }: Props) {
+export function CvSidebar({ data, lang }: Props) {
+  const t = labels[lang]
   const { personal, skills, languages, education, interests } = data
   const categories = [...new Set(skills.map(s => s.category))]
   const initials = personal.name.split(' ').map(n => n[0]).join('').slice(0, 2)
@@ -37,7 +40,7 @@ export function CvSidebar({ data }: Props) {
       </Stack>
 
       {/* Contact */}
-      <SectionLabel text="Dane kontaktowe" />
+      <SectionLabel text={t.contact} />
       <Stack spacing={1.25} sx={{ mb: 3 }}>
         {personal.email && (
           <ContactRow icon={<EmailOutlinedIcon sx={{ fontSize: 15 }} />} text={personal.email} href={`mailto:${personal.email}`} />
@@ -53,7 +56,7 @@ export function CvSidebar({ data }: Props) {
       <Divider sx={{ borderColor: DIVIDER, mb: 2.5 }} />
 
       {/* Skills */}
-      <SectionLabel text="Umiejętności" />
+      <SectionLabel text={t.skills} />
       {categories.map(cat => (
         <Box key={cat} sx={{ mb: 2 }}>
           <Typography sx={{ color: GOLD, fontWeight: 700, fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.1em', mb: 0.75 }}>
@@ -93,7 +96,7 @@ export function CvSidebar({ data }: Props) {
       <Divider sx={{ borderColor: DIVIDER, mb: 2.5 }} />
 
       {/* Languages */}
-      <SectionLabel text="Języki" />
+      <SectionLabel text={t.languages} />
       <Stack spacing={1.5} sx={{ mb: 3 }}>
         {languages.map(lang => (
           <Box key={lang.id}>
@@ -118,7 +121,7 @@ export function CvSidebar({ data }: Props) {
       <Divider sx={{ borderColor: DIVIDER, mb: 2.5 }} />
 
       {/* Education */}
-      <SectionLabel text="Wykształcenie" />
+      <SectionLabel text={t.education} />
       <Stack spacing={1.5} sx={{ mb: interests.length ? 2.5 : 0 }}>
         {education.map(edu => (
           <Box key={edu.id}>
@@ -135,7 +138,7 @@ export function CvSidebar({ data }: Props) {
       {interests.length > 0 && (
         <>
           <Divider sx={{ borderColor: DIVIDER, mb: 2.5 }} />
-          <SectionLabel text="Zainteresowania" />
+          <SectionLabel text={t.interests} />
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.75 }}>
             {interests.map(item => (
               <Chip
