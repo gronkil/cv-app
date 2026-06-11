@@ -400,8 +400,7 @@ export function CvPdfDocument({ data }: Props) {
           ))}
 
           {projects.length > 0 && (
-            <>
-              <View style={s.mainDivider} />
+            <View break>
               <View style={s.mainSectionRow}>
                 <View style={s.mainSectionDot} />
                 <Text style={s.mainSectionLabel}>Projekty własne</Text>
@@ -423,7 +422,7 @@ export function CvPdfDocument({ data }: Props) {
                   {idx < projects.length - 1 && <View style={s.expGap} />}
                 </View>
               ))}
-            </>
+            </View>
           )}
         </View>
 
