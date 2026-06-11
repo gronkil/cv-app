@@ -1,14 +1,15 @@
 # CV App — Claude Context
 
 ## Project
-React 18 + TypeScript CV editor with inline editing and PDF export.
+React 19 + TypeScript CV editor with inline editing and PDF export.
 
 ## Stack
-- Vite + React 18 + TypeScript
+- Vite + React 19 + TypeScript
+- MUI v9 (Material UI components)
 - Zustand (state + localStorage persist via `cv-storage` key)
 - Tailwind CSS v4 (via `@tailwindcss/vite` plugin)
 - Framer Motion (animations)
-- html2canvas + jsPDF (PDF export)
+- @react-pdf/renderer (PDF export)
 - Lucide React (icons)
 - Sonner (toast notifications)
 
@@ -24,12 +25,13 @@ React 18 + TypeScript CV editor with inline editing and PDF export.
 - `src/hooks/usePdfExport.ts` — PDF generation logic
 - `src/components/editor/EditableField.tsx` — core inline edit component
 - `src/components/editor/EditToolbar.tsx` — floating toolbar (Edit/Save/PDF)
+- `src/components/pdf/CvPdfDocument.tsx` — PDF document layout (@react-pdf/renderer)
 
 ## Architecture
 - Edit mode is a global boolean in Zustand (`isEditMode`)
 - `EditableField` renders `<span>` in view mode, `<input>/<textarea>` in edit mode
 - Data auto-persists to localStorage on every change
-- PDF export: disables edit mode → waits 300ms → html2canvas → jsPDF
+- PDF export: rendered via `@react-pdf/renderer` as a separate document component
 
 ## Commands
 ```bash
