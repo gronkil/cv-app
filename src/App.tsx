@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Box, Container, Fab, CircularProgress, Paper, Typography, ToggleButton, ToggleButtonGroup } from '@mui/material'
+import { Box, Container, Fab, CircularProgress, Paper, Typography } from '@mui/material'
 import DownloadIcon from '@mui/icons-material/Download'
 import { cvData } from './data/defaultCv'
 import { cvDataEn } from './data/defaultCvEn'
@@ -21,31 +21,40 @@ export default function App() {
     <Box sx={{ bgcolor: 'background.default', minHeight: '100vh', pt: { xs: 0, sm: 3, md: 5 }, pb: { xs: 10, sm: 3, md: 5 } }}>
       <Container maxWidth="lg" sx={{ px: { xs: 0, sm: 2, md: 3 } }}>
         <Box sx={{ display: 'flex', justifyContent: 'flex-end', px: { xs: 2, sm: 0 }, mb: 1.5 }}>
-          <ToggleButtonGroup
-            value={lang}
-            exclusive
-            onChange={(_, v) => v && setLang(v)}
-            size="small"
-            sx={{
-              bgcolor: 'white',
-              borderRadius: '8px',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-              '& .MuiToggleButton-root': {
-                px: 2,
-                py: 0.5,
-                fontSize: '0.75rem',
-                fontWeight: 700,
-                letterSpacing: '0.06em',
-                color: '#718096',
-                border: 'none',
-                borderRadius: '8px !important',
-                '&.Mui-selected': { bgcolor: '#1C2333', color: '#C9A84C' },
-              },
-            }}
-          >
-            <ToggleButton value="pl">PL</ToggleButton>
-            <ToggleButton value="en">EN</ToggleButton>
-          </ToggleButtonGroup>
+          <Box sx={{
+            display: 'inline-flex',
+            bgcolor: 'white',
+            borderRadius: '24px',
+            p: '3px',
+            boxShadow: '0 2px 12px rgba(0,0,0,0.10)',
+            gap: '2px',
+          }}>
+            {(['pl', 'en'] as Lang[]).map(l => (
+              <Box
+                key={l}
+                component="button"
+                onClick={() => setLang(l)}
+                sx={{
+                  px: 2.5,
+                  py: 0.75,
+                  borderRadius: '20px',
+                  fontSize: '0.72rem',
+                  fontWeight: 700,
+                  letterSpacing: '0.1em',
+                  cursor: 'pointer',
+                  border: 'none',
+                  outline: 'none',
+                  transition: 'all 0.2s ease',
+                  bgcolor: lang === l ? '#1C2333' : 'transparent',
+                  color: lang === l ? '#C9A84C' : '#94a3b8',
+                  boxShadow: lang === l ? '0 2px 8px rgba(28,35,51,0.25)' : 'none',
+                  '&:hover': { color: lang === l ? '#C9A84C' : '#1C2333' },
+                }}
+              >
+                {l.toUpperCase()}
+              </Box>
+            ))}
+          </Box>
         </Box>
 
         <Paper
