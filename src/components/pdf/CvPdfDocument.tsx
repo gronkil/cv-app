@@ -35,9 +35,16 @@ const s = StyleSheet.create({
   },
 
   // ── SIDEBAR ──
-  sidebar: {
+  sidebarBg: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    bottom: 0,
     width: '33%',
     backgroundColor: SIDEBAR_BG,
+  },
+  sidebar: {
+    width: '33%',
     padding: 20,
   },
   avatar: {
@@ -277,6 +284,9 @@ export function CvPdfDocument({ data }: Props) {
   return (
     <Document title={`${personal.name} – CV`} author={personal.name}>
       <Page size="A4" style={s.page}>
+
+        {/* Sidebar background — fixed so it repeats on every page */}
+        <View fixed style={s.sidebarBg} />
 
         {/* ── SIDEBAR ── */}
         <View style={s.sidebar}>
