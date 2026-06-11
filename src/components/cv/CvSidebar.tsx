@@ -64,11 +64,11 @@ export function CvSidebar({ data }: Props) {
               <Chip
                 key={skill.id}
                 label={
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}>
-                    {skill.name}
-                    <Box sx={{ display: 'flex', gap: '3px' }}>
+                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: '3px', py: '3px' }}>
+                    <span>{skill.name}</span>
+                    <Box sx={{ display: 'flex', gap: '2px' }}>
                       {[1,2,3,4,5].map(i => (
-                        <Box key={i} sx={{ width: 4, height: 4, borderRadius: '50%', bgcolor: i <= skill.level ? GOLD : 'rgba(255,255,255,0.2)' }} />
+                        <Box key={i} sx={{ flex: 1, height: 3, borderRadius: 1, bgcolor: i <= skill.level ? GOLD : 'rgba(255,255,255,0.2)' }} />
                       ))}
                     </Box>
                   </Box>
@@ -79,9 +79,9 @@ export function CvSidebar({ data }: Props) {
                   color: LIGHT,
                   borderRadius: '4px',
                   fontSize: '0.7rem',
-                  height: 24,
+                  height: 'auto',
                   border: '1px solid rgba(255,255,255,0.12)',
-                  '& .MuiChip-label': { display: 'flex', alignItems: 'center', px: 1 },
+                  '& .MuiChip-label': { display: 'flex', px: 1 },
                   '&:hover': { bgcolor: 'rgba(201,168,76,0.2)', borderColor: GOLD },
                 }}
               />
