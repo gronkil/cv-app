@@ -400,7 +400,7 @@ export function CvPdfDocument({ data }: Props) {
           ))}
 
           {projects.length > 0 && (
-            <View break style={{ paddingTop: 28 }}>
+            <View break style={{ paddingTop: 48 }}>
               <View style={s.mainSectionRow}>
                 <View style={s.mainSectionDot} />
                 <Text style={s.mainSectionLabel}>Projekty własne</Text>
