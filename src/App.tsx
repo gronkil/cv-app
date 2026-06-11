@@ -20,14 +20,34 @@ export default function App() {
   return (
     <Box sx={{ bgcolor: 'background.default', minHeight: '100vh', pt: { xs: 0, sm: 3, md: 5 }, pb: { xs: 10, sm: 3, md: 5 } }}>
       <Container maxWidth="lg" sx={{ px: { xs: 0, sm: 2, md: 3 } }}>
-        <Box sx={{ display: 'flex', justifyContent: 'flex-end', px: { xs: 2, sm: 0 }, mb: 1.5 }}>
+        <Box sx={{ position: 'relative' }}>
+          <Paper
+            id="cv-document"
+            elevation={6}
+            sx={{ borderRadius: { xs: 0, sm: 2 }, overflow: 'hidden' }}
+          >
+            <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, alignItems: 'stretch' }}>
+              <Box sx={{ width: { xs: '100%', md: '33%' }, flexShrink: 0, bgcolor: '#1C2333' }}>
+                <CvSidebar data={data} lang={lang} />
+              </Box>
+              <Box sx={{ flex: 1, bgcolor: '#FAFAF8', minWidth: 0 }}>
+                <CvMain data={data} lang={lang} />
+              </Box>
+            </Box>
+          </Paper>
+
+          {/* Language toggle — badge on top-right corner of document */}
           <Box sx={{
+            position: 'absolute',
+            top: { xs: 12, sm: -14 },
+            right: { xs: 12, sm: 12 },
             display: 'inline-flex',
             bgcolor: 'white',
             borderRadius: '24px',
             p: '3px',
-            boxShadow: '0 2px 12px rgba(0,0,0,0.10)',
+            boxShadow: '0 2px 12px rgba(0,0,0,0.12)',
             gap: '2px',
+            zIndex: 10,
           }}>
             {(['pl', 'en'] as Lang[]).map(l => (
               <Box
@@ -35,10 +55,10 @@ export default function App() {
                 component="button"
                 onClick={() => setLang(l)}
                 sx={{
-                  px: 2.5,
-                  py: 0.75,
+                  px: 2,
+                  py: 0.5,
                   borderRadius: '20px',
-                  fontSize: '0.72rem',
+                  fontSize: '0.7rem',
                   fontWeight: 700,
                   letterSpacing: '0.1em',
                   cursor: 'pointer',
@@ -47,7 +67,7 @@ export default function App() {
                   transition: 'all 0.2s ease',
                   bgcolor: lang === l ? '#1C2333' : 'transparent',
                   color: lang === l ? '#C9A84C' : '#94a3b8',
-                  boxShadow: lang === l ? '0 2px 8px rgba(28,35,51,0.25)' : 'none',
+                  boxShadow: lang === l ? '0 2px 6px rgba(28,35,51,0.2)' : 'none',
                   '&:hover': { color: lang === l ? '#C9A84C' : '#1C2333' },
                 }}
               >
@@ -56,21 +76,6 @@ export default function App() {
             ))}
           </Box>
         </Box>
-
-        <Paper
-          id="cv-document"
-          elevation={6}
-          sx={{ borderRadius: { xs: 0, sm: 2 }, overflow: 'hidden' }}
-        >
-          <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, alignItems: 'stretch' }}>
-            <Box sx={{ width: { xs: '100%', md: '33%' }, flexShrink: 0, bgcolor: '#1C2333' }}>
-              <CvSidebar data={data} lang={lang} />
-            </Box>
-            <Box sx={{ flex: 1, bgcolor: '#FAFAF8', minWidth: 0 }}>
-              <CvMain data={data} lang={lang} />
-            </Box>
-          </Box>
-        </Paper>
       </Container>
 
       <Fab
