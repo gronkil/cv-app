@@ -22,7 +22,8 @@ export const cvData: CvData = {
       endDate: 'obecnie',
       description: [
         'Assistance AI — bezpieczna platforma webowa integrująca zewnętrzne API GenAI (LLM) dla pracowników PZU; czas realizacji: 11 dni, zasięg: ~1 000 użytkowników; nagroda Rzeczpospolitej Cyfrowej 2024 za wkład w polską transformację cyfrową',
-        'AI Ambassador (od 05.2025) — współtworzę MCP dla pracowników PZU zgodny z polityką bezpieczeństwa; pomagam budować i weryfikować skille do code review (PR) oraz testowania agentów AI; uczestniczę w kształtowaniu strategii dystrybucji tokenów GitHub Copilot po zmianie zasad przez Microsoft (06.2026); rozwijam kompetencje w zakresie przekazywania wiedzy o AI innym pracownikom',
+        'AI Ambassador (od 05.2025) — kształtuję strategię wdrażania AI w IT PZU: współtworzę MCP zgodny z polityką bezpieczeństwa firmy, uczestniczę w ustalaniu zasad dystrybucji tokenów GitHub Copilot po zmianie regulaminu przez Microsoft (06.2026)',
+        'Weryfikacja agentów AI — buduję i testuję skille do automatycznego code review (PR) oraz oceny jakości agentów; rozwijam program transferu wiedzy o AI dla pracowników PZU',
         'DevEx / DX (od 05.2026) — Developer Experience: DX integruje się z narzędziami deweloperów i mierzy ich efektywność; dane eksponowane w Metabase; przeprowadzam normalizację i czyszczenie danych (deadline 15.06); w kolejnym kroku planuję zastąpić Metabase dedykowanym frontendem (Tracy) i wdrożyć pipeline ETL eliminujący ręczne pobieranie danych',
         'Dług Technologiczny (Dept) — system analizujący biblioteki wszystkich modułów z automatyczną integracją Bitbucket; algorytm wylicza scoring ryzyka i wskaźniki DORA dla każdego repozytorium',
         'CRA (Centralna Rejestracja Aplikacji) — zbudowałem od zera centralny rejestr systemów IT organizacji (React.js + Kotlin); zautomatyzowałem onboarding nowych serwisów i ich powiązań',
