@@ -3,14 +3,17 @@ import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined'
 import WorkOutlinedIcon from '@mui/icons-material/WorkOutlined'
 import CodeOutlinedIcon from '@mui/icons-material/CodeOutlined'
 import type { CvData } from '../../types/cv.types'
+import type { Lang } from '../../i18n/labels'
+import { labels } from '../../i18n/labels'
 
 const NAVY = '#1C2333'
 const GOLD = '#C9A84C'
 const BODY = '#4a5568'
 
-interface Props { data: CvData }
+interface Props { data: CvData; lang: Lang }
 
-export function CvMain({ data }: Props) {
+export function CvMain({ data, lang }: Props) {
+  const t = labels[lang]
   const { personal, experience, projects } = data
 
   return (
@@ -45,13 +48,13 @@ export function CvMain({ data }: Props) {
       </Box>
 
       {/* Summary */}
-      <SectionHeader icon={<PersonOutlinedIcon fontSize="small" />} title="Profil osobisty" />
+      <SectionHeader icon={<PersonOutlinedIcon fontSize="small" />} title={t.profile} />
       <Typography sx={{ color: BODY, lineHeight: 1.85, mb: 3.5, fontSize: '0.875rem' }}>
         {personal.summary}
       </Typography>
 
       {/* Experience */}
-      <SectionHeader icon={<WorkOutlinedIcon fontSize="small" />} title="Doświadczenie zawodowe" />
+      <SectionHeader icon={<WorkOutlinedIcon fontSize="small" />} title={t.experience} />
       <Stack spacing={2.5}>
         {experience.map(exp => (
           <Box key={exp.id}>
@@ -104,7 +107,7 @@ export function CvMain({ data }: Props) {
       {projects.length > 0 && (
         <>
           <Box sx={{ mt: 3 }} />
-          <SectionHeader icon={<CodeOutlinedIcon fontSize="small" />} title="Projekty własne" />
+          <SectionHeader icon={<CodeOutlinedIcon fontSize="small" />} title={t.projects} />
           <Stack spacing={2}>
             {projects.map(proj => (
               <Box key={proj.id}>
