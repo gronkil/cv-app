@@ -6,8 +6,8 @@ import type { CvData } from '../../types/cv.types'
 
 const GOLD = '#C9A84C'
 const LIGHT = 'rgba(255,255,255,0.85)'
-const DIM = 'rgba(255,255,255,0.45)'
-const DIVIDER = 'rgba(255,255,255,0.1)'
+const DIM = 'rgba(255,255,255,0.70)'
+const DIVIDER = 'rgba(255,255,255,0.15)'
 
 interface Props { data: CvData }
 
@@ -63,15 +63,25 @@ export function CvSidebar({ data }: Props) {
             {skills.filter(s => s.category === cat).map(skill => (
               <Chip
                 key={skill.id}
-                label={skill.name}
+                label={
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}>
+                    {skill.name}
+                    <Box sx={{ display: 'flex', gap: '3px' }}>
+                      {[1,2,3,4,5].map(i => (
+                        <Box key={i} sx={{ width: 4, height: 4, borderRadius: '50%', bgcolor: i <= skill.level ? GOLD : 'rgba(255,255,255,0.2)' }} />
+                      ))}
+                    </Box>
+                  </Box>
+                }
                 size="small"
                 sx={{
                   bgcolor: 'rgba(255,255,255,0.08)',
                   color: LIGHT,
                   borderRadius: '4px',
                   fontSize: '0.7rem',
-                  height: 22,
+                  height: 24,
                   border: '1px solid rgba(255,255,255,0.12)',
+                  '& .MuiChip-label': { display: 'flex', alignItems: 'center', px: 1 },
                   '&:hover': { bgcolor: 'rgba(201,168,76,0.2)', borderColor: GOLD },
                 }}
               />
@@ -95,7 +105,7 @@ export function CvSidebar({ data }: Props) {
               variant="determinate"
               value={langLevelToPercent(lang.level)}
               sx={{
-                height: 3,
+                height: 7,
                 borderRadius: 2,
                 bgcolor: 'rgba(255,255,255,0.1)',
                 '& .MuiLinearProgress-bar': { bgcolor: GOLD, borderRadius: 2 },
@@ -161,7 +171,7 @@ function ContactRow({ icon, text, href }: { icon: React.ReactNode; text: string;
   const inner = (
     <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
       <Box sx={{ color: GOLD, display: 'flex', flexShrink: 0 }}>{icon}</Box>
-      <Typography sx={{ color: 'rgba(255,255,255,0.72)', fontSize: '0.75rem', wordBreak: 'break-all', lineHeight: 1.4 }}>
+      <Typography sx={{ color: LIGHT, fontSize: '0.75rem', wordBreak: 'break-all', lineHeight: 1.4 }}>
         {text}
       </Typography>
     </Stack>
