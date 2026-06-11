@@ -25,7 +25,7 @@ const BODY = '#4A5568'
 const SIDEBAR_BG = '#1C2333'
 const MAIN_BG = '#FAFAF8'
 const DIVIDER_DARK = '#2D3748'
-const DIVIDER_LIGHT = '#E8E9EC'
+
 
 const s = StyleSheet.create({
   page: {
