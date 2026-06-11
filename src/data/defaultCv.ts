@@ -23,6 +23,7 @@ export const cvData: CvData = {
       description: [
         'Assistance AI — bezpieczna platforma webowa integrująca zewnętrzne API GenAI (LLM) dla pracowników PZU; czas realizacji: 11 dni, zasięg: ~1 000 użytkowników; nagroda Rzeczpospolitej Cyfrowej 2024 za wkład w polską transformację cyfrową',
         'AI Ambassador (od 05.2025) — aktywna współpraca między zespołami IT w celu wdrażania narzędzi AI i usprawniania codziennej pracy w organizacji',
+        'DevEx / DX (od 05.2025) — nowy zespół odpowiedzialny za Developer Experience; DX integruje się z narzędziami deweloperów i mierzy ich efektywność, DevEx pobiera dane z DX i prezentuje je w Metabase; aktualnie porządkuję i normalizuję dane wejściowe',
         'Dług Technologiczny (Dept) — system analizujący biblioteki wszystkich modułów z automatyczną integracją Bitbucket; algorytm wylicza scoring ryzyka i wskaźniki DORA dla każdego repozytorium',
         'CRA (Centralna Rejestracja Aplikacji) — zbudowałem od zera centralny rejestr systemów IT organizacji (React.js + Kotlin); zautomatyzowałem onboarding nowych serwisów i ich powiązań',
         'Utrzymywałem i rozwijałem architekturę mikroserwisową (Kotlin), pipeline CI/CD oraz integracje systemowe w środowisku enterprise',
