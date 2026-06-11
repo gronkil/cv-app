@@ -1,20 +1,21 @@
 import { useState } from 'react'
 import { pdf } from '@react-pdf/renderer'
 import { CvPdfDocument } from '../components/pdf/CvPdfDocument'
-import { cvData } from '../data/defaultCv'
+import type { CvData } from '../types/cv.types'
+import type { Lang } from '../i18n/labels'
 
 export function usePdfExport() {
   const [isExporting, setIsExporting] = useState(false)
 
-  const exportPdf = async () => {
+  const exportPdf = async (data: CvData, lang: Lang) => {
     setIsExporting(true)
     try {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const blob = await pdf(<CvPdfDocument data={cvData} /> as any).toBlob()
+      const blob = await pdf(<CvPdfDocument data={data} lang={lang} /> as any).toBlob()
       const url = URL.createObjectURL(blob)
       const a = document.createElement('a')
       a.href = url
-      a.download = `${cvData.personal.name.replace(/\s+/g, '_')}_CV.pdf`
+      a.download = `${data.personal.name.replace(/\s+/g, '_')}_CV.pdf`
       document.body.appendChild(a)
       a.click()
       document.body.removeChild(a)

@@ -80,7 +80,7 @@ export default function App() {
 
       <Fab
         variant="extended"
-        onClick={exportPdf}
+        onClick={() => exportPdf(data, lang)}
         disabled={isExporting}
         aria-label={t.download}
         sx={{
