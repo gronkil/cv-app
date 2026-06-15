@@ -26,6 +26,7 @@ dist-ssr
 # Claude Code local config (may contain tokens/keys)
 .claude/
 !.claude/commands/
+!.claude/settings.json
 skills-lock.json
 start-debug.ps1
 
