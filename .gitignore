@@ -27,6 +27,7 @@ dist-ssr
 .claude/
 !.claude/commands/
 !.claude/settings.json
+!.claude/hooks/
 skills-lock.json
 start-debug.ps1
 
