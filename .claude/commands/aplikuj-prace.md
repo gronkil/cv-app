@@ -95,7 +95,78 @@ Użyj narzędzi Playwright (browser_navigate, browser_fill, browser_click, brows
 - Powiadom użytkownika w raporcie
 
 **Jeśli strona podaje email HR:**
-- Nie używaj Playwright — zapisz plik z gotowym tekstem emaila do skopiowania
+- Wyślij email do HR przez curl + Gmail SMTP (krok 1e-email poniżej)
+
+### 1e-email. Wyślij email do HR (jeśli podany adres zamiast formularza)
+
+Odczytaj z `.claude/user-profile.json`:
+- `emailNotifications.from` → nadawca
+- `emailNotifications.gmailAppPassword` → hasło App Password
+
+Jeśli `gmailAppPassword` jest puste → pomiń wysyłkę, zapisz plik i powiadom użytkownika:
+> ⚠️ Brak Gmail App Password w `.claude/user-profile.json` — uzupełnij żeby włączyć wysyłkę emaili.
+
+Jeśli hasło jest ustawione, użyj Bash żeby wysłać przez curl:
+
+```bash
+EMAIL_FROM="kozlowski.mateusz.praca@gmail.com"
+EMAIL_TO="[adres HR z oferty]"
+APP_PASS="[gmailAppPassword z user-profile.json]"
+SUBJECT="[Stanowisko] — Mateusz Markowski"
+BODY="[cover letter z 1c]
+
+--
+Mateusz Markowski
+kozlowski.mateusz.praca@gmail.com
+https://www.linkedin.com/in/mateusz-kozłowski-2b576114b"
+
+curl -s --url "smtps://smtp.gmail.com:465" \
+  --ssl-reqd \
+  --mail-from "$EMAIL_FROM" \
+  --mail-rcpt "$EMAIL_TO" \
+  --user "$EMAIL_FROM:$APP_PASS" \
+  -T <(printf "From: Mateusz Markowski <%s>\r\nTo: %s\r\nSubject: %s\r\nContent-Type: text/plain; charset=UTF-8\r\n\r\n%s" \
+    "$EMAIL_FROM" "$EMAIL_TO" "$SUBJECT" "$BODY")
+```
+
+Sprawdź exit code: 0 = sukces, inne = błąd (zaraportuj).
+
+### 1g. Wyślij powiadomienie email do Mateusza
+
+Po każdej aplikacji (niezależnie od sposobu) wyślij email z raportem do Mateusza.
+
+Odczytaj z `.claude/user-profile.json` → `emailNotifications` (from, to, gmailAppPassword).
+Pomiń jeśli `gmailAppPassword` jest puste.
+
+Treść emaila:
+
+```
+Subject: [✅/📁] Aplikacja: [Firma] — [Stanowisko]
+
+Aplikacja [N/3] złożona [data]
+
+FIRMA: [Nazwa]
+STANOWISKO: [Rola]
+SPOSÓB: [Playwright / Email do HR / Wymaga ręcznego dokończenia]
+DOPASOWANIE: [X/Y skillów]
+
+--- CO WIEM O FIRMIE ---
+[3-5 zdań]
+
+--- DLACZEGO TU APLIKUJEMY ---
+[2-3 zdania]
+
+--- SZACOWANA SZANSA NA ODPOWIEDŹ: XX% ---
+[Uzasadnienie]
+
+--- PLIK APLIKACJI ---
+applications/[nazwa-pliku].md
+
+--- COVER LETTER ---
+[pełny tekst cover letter]
+```
+
+Wyślij tym samym curl co w 1e-email, ale `EMAIL_TO` = wartość `emailNotifications.to` z user-profile.json.
 
 ### 1f. Zapisz plik aplikacji
 
