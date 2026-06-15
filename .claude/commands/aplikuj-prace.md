@@ -133,7 +133,7 @@ Sprawdź exit code: 0 = sukces, inne = błąd (zaraportuj).
 
 ### 1g. Wyślij powiadomienie email do Mateusza
 
-Po każdej aplikacji (niezależnie od sposobu) wyślij email z raportem do Mateusza.
+Wyślij email z raportem **tylko jeśli aplikacja została faktycznie wysłana** (Playwright submit zakończony sukcesem LUB email HR wysłany przez curl). Jeśli formularz wymaga ręcznego dokończenia lub wysyłka się nie powiodła → nie wysyłaj emaila powiadomienia, tylko napisz o tym w raporcie w czacie.
 
 Odczytaj z `.claude/user-profile.json` → `emailNotifications` (from, to, gmailAppPassword).
 Pomiń jeśli `gmailAppPassword` jest puste.

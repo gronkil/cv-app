@@ -92,9 +92,9 @@ Dla każdej z 3 ofert z `top3` wykonaj pełen proces aplikacyjny (jak w `/apliku
 1. WebFetch URL oferty → wymagania, email HR, URL formularza
 2. Napisz spersonalizowany cover letter (3 akapity, max 180 słów)
 3. Jeśli formularz online → Playwright (browser_navigate → browser_fill → browser_click submit → browser_screenshot)
-4. Jeśli email HR → curl + Gmail SMTP (dane z user-profile.json)
+4. Jeśli email HR → curl + Gmail SMTP (dane z user-profile.json); jeśli brak emaila HR → pomiń
 5. Zapisz plik: `applications/YYYY-MM-DD_Firma_Stanowisko.md`
-6. Wyślij email powiadomienie do Mateusza (jak w `/aplikuj-prace` krok 1g)
+6. Wyślij email powiadomienie do Mateusza tylko jeśli aplikacja faktycznie została wysłana (Playwright submit lub email HR) — nie wysyłaj jeśli formularz wymaga ręcznego dokończenia lub wysyłka się nie powiodła
 
 ## Krok 5 — Aktualizacja rejestru
 
