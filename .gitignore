@@ -28,3 +28,6 @@ dist-ssr
 !.claude/commands/
 skills-lock.json
 start-debug.ps1
+
+# Generated job applications (contain personal data)
+applications/
