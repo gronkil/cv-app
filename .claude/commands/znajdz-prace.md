@@ -12,12 +12,16 @@ Zanim zaczniesz szukać, przeczytaj plik `src/data/defaultCv.ts` żeby znać akt
    - Stack technologiczny
    - Lokalizację (Warszawa)
 
-2. **Przeszukaj oferty** na co najmniej 3 z tych źródeł używając WebSearch:
-   - JustJoin.it — szukaj po: "React TypeScript Warszawa", "Fullstack developer Warszawa", "Kotlin Spring Warszawa", "AI developer Warszawa"
-   - NoFluffJobs — szukaj: "fullstack warszawa react kotlin"
+2. **Przeszukaj oferty** na co najmniej 5 z tych źródeł używając WebSearch:
+   - JustJoin.it — "React TypeScript Warszawa", "Fullstack developer Warszawa", "Kotlin Spring Warszawa", "AI developer Warszawa"
+   - NoFluffJobs — "fullstack warszawa react kotlin"
    - Pracuj.pl — "programista fullstack warszawa"
-   - LinkedIn Jobs (jeśli dostępne) — "fullstack developer warsaw react"
+   - LinkedIn Jobs — "fullstack developer warsaw react"
    - Bulldogjob.pl — "fullstack developer react typescript"
+   - TheProtocol.it — "fullstack developer warszawa", "senior react warszawa"
+   - Solid.jobs — "fullstack warszawa", "react developer warszawa"
+   - RocketJobs.pl — "fullstack developer warszawa react"
+   - 4programmers.net/Praca — "react typescript warszawa", "fullstack warszawa"
 
 3. **Oceń każdą ofertę** przez pryzmat:
    - % pokrycia wymaganych skillów (ile z wymaganych technologii Mateusz zna?)
