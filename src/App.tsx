@@ -6,6 +6,7 @@ import { cvDataEn } from './data/defaultCvEn'
 import { usePdfExport } from './hooks/usePdfExport'
 import { CvSidebar } from './components/cv/CvSidebar'
 import { CvMain } from './components/cv/CvMain'
+import { JobSearch } from './components/JobSearch'
 import type { Lang } from './i18n/labels'
 import { labels } from './i18n/labels'
 
@@ -77,6 +78,8 @@ export default function App() {
           </Box>
         </Box>
       </Container>
+
+      <JobSearch skills={data.skills} />
 
       <Fab
         variant="extended"
