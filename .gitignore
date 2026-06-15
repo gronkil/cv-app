@@ -29,5 +29,5 @@ dist-ssr
 skills-lock.json
 start-debug.ps1
 
-# Generated job applications (contain personal data)
+# Prywatne pliki aplikacji o pracę (dane osobowe)
 applications/

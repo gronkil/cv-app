@@ -9,22 +9,28 @@ Przed jakimkolwiek działaniem przeczytaj oba pliki:
 Jeśli $ARGUMENTS jest puste — zatrzymaj się i napisz:
 > Podaj URL(e) ofert pracy, np.: `/aplikuj-prace https://justjoin.it/offers/xyz`
 
-## Krok 1 — Dla każdego URL z $ARGUMENTS
+**LIMIT: Przetwórz maksymalnie 3 pierwsze URLe z $ARGUMENTS.**
+Jeśli podano więcej, napisz na początku:
+> ⚠️ Mam [N] ofert — przetworzę pierwsze 3. Pozostałe [N-3] podaj w osobnej prośbie.
+
+## Krok 1 — Dla każdego URL z $ARGUMENTS (max 3)
 
 ### 1a. Pobierz szczegóły oferty
+
 WebFetch URL oferty. Wyciągnij:
 - Nazwa firmy i stanowisko
 - Wymagane technologie i poziom (must-have vs nice-to-have)
 - Opis roli i obowiązki
 - Widełki wynagrodzenia (jeśli podane)
 - Typ pracy: remote / hybrid / on-site
-- Sposób aplikowania: email HR (jeśli widoczny na stronie) lub formularz "Apply" / "Aplikuj"
+- Sposób aplikowania: email HR (jeśli widoczny) lub formularz "Apply" / "Aplikuj"
 - URL przycisku "Aplikuj" / "Apply now"
 
 ### 1b. Oceń dopasowanie
+
 Porównaj wymagania z CV. Oblicz:
 - Skille które Mateusz MA (level 4-5) → mocne argumenty w cover letter
-- Skille których nie ma → nie wspominaj w liście, nie kłam
+- Skille których nie ma → nie wspominaj, nie kłam
 - Unikalny atut: jeśli oferta dotyczy AI/LLM/GenAI → podkreśl Assistance AI (nagroda Rzeczpospolitej Cyfrowej 2024, 1000 użytkowników, 11 dni realizacji)
 
 ### 1c. Napisz cover letter po polsku
@@ -43,7 +49,7 @@ Wyraź gotowość do rozmowy. Wspomnij dostępność (okres wypowiedzenia z user
 
 Podpisz: `Mateusz Markowski`
 
-### 1d. Przygotuj odpowiedzi na typowe pytania formularzy
+### 1d. Przygotuj dane do formularza
 
 ```
 DANE OSOBOWE:
@@ -69,13 +75,34 @@ DODATKOWE PYTANIA (typowe):
 → Assistance AI — aplikacja webowa z GenAI dla ~1000 pracowników PZU, zrealizowana w 11 dni, wyróżniona nagrodą Rzeczpospolitej Cyfrowej 2024.
 ```
 
-### 1e. Zapisz plik aplikacji
+### 1e. Wyślij aplikację przez Playwright
+
+Użyj narzędzi Playwright (browser_navigate, browser_fill, browser_click, browser_screenshot) aby wypełnić i wysłać formularz:
+
+1. `browser_navigate` → URL strony aplikowania (przycisk "Aplikuj"/"Apply now" z 1a)
+2. Zrób screenshot żeby zobaczyć pola formularza
+3. Wypełnij pola danymi z 1d:
+   - Pola imię/email/telefon/LinkedIn → odpowiednie wartości
+   - Pole cover letter / list motywacyjny → wklej tekst z 1c
+   - Pole wynagrodzenie / oczekiwania → z user-profile.json
+4. `browser_screenshot` przed wysłaniem (do pliku aplikacji)
+5. Kliknij przycisk submit ("Wyślij"/"Apply"/"Aplikuj")
+6. `browser_screenshot` po wysłaniu — zapisz potwierdzenie
+
+**Jeśli formularz wymaga logowania / captcha / attachmentu CV:**
+- Nie klikaj submit
+- Zapisz plik aplikacji (krok 1f) z adnotacją "Wymaga ręcznego dokończenia"
+- Powiadom użytkownika w raporcie
+
+**Jeśli strona podaje email HR:**
+- Nie używaj Playwright — zapisz plik z gotowym tekstem emaila do skopiowania
+
+### 1f. Zapisz plik aplikacji
 
 Utwórz plik: `applications/YYYY-MM-DD_NazwaFirmy_Stanowisko.md`
 
-Gdzie YYYY-MM-DD = dzisiejsza data, NazwaFirmy i Stanowisko = z oferty (bez spacji, bez polskich znaków, snake_case).
+Gdzie YYYY-MM-DD = dzisiejsza data, NazwaFirmy i Stanowisko bez spacji, bez polskich znaków.
 
-Struktura pliku:
 ```markdown
 # [Firma] — [Stanowisko]
 **Data:** YYYY-MM-DD  
@@ -103,20 +130,42 @@ Struktura pliku:
 - [ ] Rozmowa umówiona
 ```
 
-## Krok 2 — Raport końcowy
+### 1g. Raport do użytkownika po każdej aplikacji
 
-Po przetworzeniu wszystkich URLi wypisz:
+Natychmiast po zakończeniu każdej aplikacji wyślij raport w tym formacie:
+
+---
+**@ Mateusz — aplikacja [N/3]**
+
+**🏢 Firma:** [Nazwa firmy] | **💼 Stanowisko:** [Rola]
+**📬 Sposób:** [✅ Formularz wysłany przez Playwright / 📧 Email do wysłania / 📁 Wymaga ręcznego dokończenia]
+
+**Co wiem o tej firmie:**
+[3–5 zdań: branża, co firma robi/sprzedaje, przybliżona wielkość, stack technologiczny jeśli znany, ciekawostka lub powód dlaczego jest godna uwagi]
+
+**Dlaczego tu aplikujemy:**
+[2–3 zdania: konkretne dopasowanie między profilem Mateusza a tym czego szuka firma — które jego skille są tu najcenniejsze, co wyróżnia go spośród kandydatów]
+
+**📊 Szacowana szansa na odpowiedź: XX%**
+Uzasadnienie: [np. "Silne dopasowanie (8/9 skillów must-have), ogłoszenie sprzed 2 dni, firma aktywnie rekrutuje. Minus: brak AWS który jest nice-to-have."]
+
+**📁 Plik:** `applications/[nazwa-pliku].md`
+
+---
+
+## Krok 2 — Raport końcowy po wszystkich aplikacjach
 
 ```
-## Podsumowanie aplikacji
+## Podsumowanie [N] aplikacji
 
-| Firma | Stanowisko | Dopasowanie | Sposób aplikacji | Plik |
-|-------|-----------|-------------|-----------------|------|
-| ...   | ...       | X/Y skillów | Email / Formularz | applications/... |
+| # | Firma | Stanowisko | Dopasowanie | Sposób | Szansa |
+|---|-------|-----------|-------------|--------|--------|
+| 1 | ...   | ...       | X/Y skillów | Playwright / Email / Ręcznie | XX% |
 
 ## Następne kroki
-- [dla każdej oferty z formularzem] Otwórz: [URL] i skopiuj dane z pliku [ścieżka]
-- [dla każdej oferty email] Wyślij email na [adres] z cover letterem z pliku [ścieżka]
+- [aplikacje wysłane przez Playwright] ✅ Gotowe
+- [aplikacje z emailem] 📧 Wyślij email na [adres] z plikiem [ścieżka]
+- [aplikacje wymagające ręcznego dokończenia] 🖱️ Otwórz [URL] i wypełnij ręcznie — dane w pliku [ścieżka]
 ```
 
 ## Ważne zasady
@@ -126,5 +175,6 @@ Po przetworzeniu wszystkich URLi wypisz:
 - KAŻDY cover letter musi być unikatowy i odnosić się do konkretnej firmy/roli
 - Jeśli oferta jest po angielsku → pisz cover letter po angielsku
 - Jeśli URL jest niedostępny → napisz o tym i przejdź do następnego
+- MAX 3 aplikacje per wywołanie — nie przetwarzaj więcej nawet jeśli użytkownik poda więcej URLi
 
 $ARGUMENTS
