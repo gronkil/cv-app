@@ -1,4 +1,5 @@
 {
+  "enableAllProjectMcpServers": true,
   "mcpServers": {
     "playwright": {
       "command": "playwright-mcp",
