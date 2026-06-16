@@ -55,6 +55,27 @@
       "role": "Senior Full Stack Developer (React / Node.js)",
       "date": "2026-06-16",
       "status": "pending_manual"
+    },
+    {
+      "url": "https://justjoin.it/job-offer/shimi-sp-z-o-o--ai-engineer-genai-agentic-systems---senior-software-engineer-warszawa-ai",
+      "company": "Shimi Sp. z o.o.",
+      "role": "AI Engineer (GenAI / Agentic Systems) – Senior Software Engineer",
+      "date": "2026-06-16",
+      "status": "pending_manual"
+    },
+    {
+      "url": "https://justjoin.it/job-offer/clebre-mid-senior-full-stack-developer-java-kotlin-react--warszawa-java",
+      "company": "Clebre",
+      "role": "Mid/Senior Full Stack Developer (Java/Kotlin + React)",
+      "date": "2026-06-16",
+      "status": "pending_manual"
+    },
+    {
+      "url": "https://justjoin.it/job-offer/link-group-fullstack-engineer---node-react-typescript-ai-solutions-warszawa-javascript",
+      "company": "Link Group",
+      "role": "Fullstack Engineer – Node/React/TypeScript + AI Solutions",
+      "date": "2026-06-16",
+      "status": "pending_manual"
     }
   ]
 }
