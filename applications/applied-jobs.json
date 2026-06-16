@@ -1,1 +1,60 @@
-{"applied":[]}
+{
+  "applied": [
+    {
+      "url": "https://justjoin.it/job-offer/accenture-frontend-engineer---ai-solutions-ai-data-evergreen-open--warszawa-javascript",
+      "company": "Accenture",
+      "role": "Frontend Engineer – AI Solutions",
+      "date": "2026-06-15",
+      "status": "pending_manual"
+    },
+    {
+      "url": "https://solid.jobs/offer/29989/scalo-senior-fullstack-developer-react--nodejs--aws",
+      "company": "Scalo",
+      "role": "Senior Fullstack Developer (React + Node.js + AWS)",
+      "date": "2026-06-15",
+      "status": "pending_manual"
+    },
+    {
+      "url": "https://bulldogjob.pl/companies/jobs/208213-senior-fullstack-developer-warszawa-teamquest",
+      "company": "TeamQuest",
+      "role": "Senior Fullstack Developer",
+      "date": "2026-06-15",
+      "status": "pending_manual"
+    },
+    {
+      "url": "https://justjoin.it/job-offer/otterly-ai-senior-fullstack-developer-react-node-js--warszawa-javascript",
+      "company": "Otterly AI",
+      "role": "Senior Fullstack Developer (React/Node.js)",
+      "date": "2026-06-15",
+      "status": "pending_manual"
+    },
+    {
+      "url": "https://theprotocol.it/szczegoly/praca/ai-first-senior-frontend-developer-warszawa-zawrat-2a,oferta,67360000-5e03-2eb4-4d0a-08deab4ee15a",
+      "company": "PHOTOAID S.A.",
+      "role": "AI-First Senior Frontend Developer",
+      "date": "2026-06-15",
+      "status": "pending_manual"
+    },
+    {
+      "url": "https://4programmers.net/Praca/38353-senior_full_stack_ai_application_developer",
+      "company": "EY",
+      "role": "Senior Full Stack AI Application Developer",
+      "date": "2026-06-16",
+      "status": "pending_manual"
+    },
+    {
+      "url": "https://justjoin.it/job-offer/citigroup-senior-gen-ai-developer-warszawa-ai",
+      "company": "Citigroup",
+      "role": "Senior Gen AI Developer",
+      "date": "2026-06-16",
+      "status": "pending_manual"
+    },
+    {
+      "url": "https://justjoin.it/job-offer/greenminds-sp-z-o-o--senior-full-stack-developer-react-node-js--warszawa-javascript",
+      "company": "GreenMinds Sp. z o.o.",
+      "role": "Senior Full Stack Developer (React / Node.js)",
+      "date": "2026-06-16",
+      "status": "pending_manual"
+    }
+  ]
+}
