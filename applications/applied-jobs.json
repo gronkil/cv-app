@@ -1,1 +1,68 @@
-{"applied":[]}
+{
+  "applied": [
+    {
+      "date": "2026-06-15",
+      "company": "OtterlyAI",
+      "role": "Senior Fullstack Developer",
+      "url": "https://justjoin.it/job-offer/otterly-ai-senior-fullstack-developer-react-node-js--warszawa-javascript",
+      "status": "requires_manual",
+      "file": "2026-06-15_OtterlyAI_SeniorFullstackDeveloper.md"
+    },
+    {
+      "date": "2026-06-15",
+      "company": "PHOTOAID S.A.",
+      "role": "AI-First Senior Frontend Developer",
+      "url": "https://theprotocol.it/szczegoly/praca/ai-first-senior-frontend-developer-warszawa-zawrat-2a,oferta,67360000-5e03-2eb4-4d0a-08deab4ee15a",
+      "status": "requires_manual",
+      "file": "2026-06-15_PHOTOAID_AIFirstSeniorFrontendDeveloper.md"
+    },
+    {
+      "date": "2026-06-15",
+      "company": "Accenture",
+      "role": "Frontend Engineer – AI Solutions (AI&Data)",
+      "url": "https://justjoin.it/job-offer/accenture-frontend-engineer---ai-solutions-ai-data-evergreen-open--warszawa-javascript",
+      "status": "requires_manual",
+      "file": "2026-06-15_Accenture_FrontendEngineerAISolutions.md"
+    },
+    {
+      "date": "2026-06-15",
+      "company": "Scalo",
+      "role": "Senior Fullstack Developer (React+Node.js+AWS)",
+      "url": "https://solid.jobs/offer/29989/scalo-senior-fullstack-developer-react--nodejs--aws",
+      "status": "requires_manual",
+      "file": "2026-06-15_Scalo_SeniorFullstackDeveloper.md"
+    },
+    {
+      "date": "2026-06-15",
+      "company": "TeamQuest",
+      "role": "Senior Fullstack Developer",
+      "url": "https://bulldogjob.pl/companies/jobs/208213-senior-fullstack-developer-warszawa-teamquest",
+      "status": "requires_manual",
+      "file": "2026-06-15_TeamQuest_SeniorFullstackDeveloper.md"
+    },
+    {
+      "date": "2026-06-16",
+      "company": "EY",
+      "role": "Senior Full Stack AI Application Developer",
+      "url": "https://4programmers.net/Praca/38353-senior_full_stack_ai_application_developer",
+      "status": "requires_manual",
+      "file": "2026-06-16_EY_SeniorFullStackAIApplicationDeveloper.md"
+    },
+    {
+      "date": "2026-06-16",
+      "company": "Evooq",
+      "role": "Senior Software Engineer",
+      "url": "https://justjoin.it/job-offer/evooq-senior-software-engineer-warszawa-java",
+      "status": "requires_manual_offer_may_be_expired",
+      "file": "2026-06-16_Evooq_SeniorSoftwareEngineer.md"
+    },
+    {
+      "date": "2026-06-16",
+      "company": "PHOTOAID S.A.",
+      "role": "AI-First Senior Frontend Developer",
+      "url": "https://theprotocol.it/szczegoly/praca/ai-first-senior-frontend-developer-warszawa-zawrat-2a,oferta,67360000-5e03-2eb4-4d0a-08deab4ee15a",
+      "status": "requires_manual",
+      "file": "2026-06-16_PHOTOAID_AIFirstSeniorFrontendDeveloper.md"
+    }
+  ]
+}
