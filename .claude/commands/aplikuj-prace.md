@@ -75,98 +75,99 @@ DODATKOWE PYTANIA (typowe):
 → Assistance AI — aplikacja webowa z GenAI dla ~1000 pracowników PZU, zrealizowana w 11 dni, wyróżniona nagrodą Rzeczpospolitej Cyfrowej 2024.
 ```
 
-### 1e. Wyślij aplikację przez Playwright
+### 1e. Zaloguj się i wyślij aplikację przez Playwright
 
-Użyj narzędzi Playwright (browser_navigate, browser_fill, browser_click, browser_screenshot) aby wypełnić i wysłać formularz:
+Użyj narzędzi Playwright (browser_navigate, browser_fill, browser_click, browser_screenshot). Dane logowania z `.claude/user-profile.json`: `google_email`, `google_password`.
 
-1. `browser_navigate` → URL strony aplikowania (przycisk "Aplikuj"/"Apply now" z 1a)
-2. Zrób screenshot żeby zobaczyć pola formularza
-3. Wypełnij pola danymi z 1d:
-   - Pola imię/email/telefon/LinkedIn → odpowiednie wartości
-   - Pole cover letter / list motywacyjny → wklej tekst z 1c
-   - Pole wynagrodzenie / oczekiwania → z user-profile.json
-4. `browser_screenshot` przed wysłaniem (do pliku aplikacji)
-5. Kliknij przycisk submit ("Wyślij"/"Apply"/"Aplikuj")
-6. `browser_screenshot` po wysłaniu — zapisz potwierdzenie
+**Krok A — Logowanie przez Google OAuth (zawsze pierwsze):**
+1. `browser_navigate` → strona portalu (justjoin.it / theprotocol.it / nofluffjobs.com itp.)
+2. Kliknij "Sign in" / "Zaloguj się"
+3. Kliknij "Zaloguj przez Google" / "Continue with Google" / "Sign in with Google"
+4. Na stronie accounts.google.com: `browser_fill` email → `google_email` z user-profile.json
+5. Kliknij "Dalej" / "Next"
+6. `browser_fill` hasło → `google_password` z user-profile.json
+7. Kliknij "Dalej" / "Next" — poczekaj na redirect z powrotem do portalu
+8. `browser_screenshot` — potwierdź że jesteś zalogowany
 
-**Jeśli formularz wymaga logowania / captcha / attachmentu CV:**
-- Nie klikaj submit
-- Zapisz plik aplikacji (krok 1f) z adnotacją "Wymaga ręcznego dokończenia"
-- Powiadom użytkownika w raporcie
+**Krok B — Wypełnij i wyślij formularz aplikacyjny:**
+1. `browser_navigate` → URL oferty z 1a
+2. Kliknij "Aplikuj" / "Apply"
+3. `browser_screenshot` — sprawdź pola formularza
+4. Wypełnij pola danymi z 1d:
+   - Imię/email/telefon/LinkedIn → odpowiednie wartości
+   - Cover letter / list motywacyjny → tekst z 1c
+   - Wynagrodzenie / oczekiwania → z user-profile.json
+5. `browser_screenshot` przed wysłaniem
+6. Kliknij Submit ("Wyślij" / "Apply" / "Aplikuj")
+7. `browser_screenshot` po wysłaniu — potwierdź sukces
+
+**Jeśli Google OAuth nie przechodzi (2FA, captcha, błąd sieci):**
+- Zapisz plik z opisem błędu i screenshotem
+- Wyślij email do Mateusza z informacją o błędzie (zawsze wysyłaj email)
+- Kontynuuj z następną ofertą
 
 **Jeśli strona podaje email HR:**
-- Wyślij email do HR przez curl + Gmail SMTP (krok 1e-email poniżej)
+- Wyślij email do HR przez nodemailer (krok 1e-email poniżej)
 
 ### 1e-email. Wyślij email do HR (jeśli podany adres zamiast formularza)
 
-Odczytaj z `.claude/user-profile.json`:
-- `emailNotifications.from` → nadawca
-- `emailNotifications.gmailAppPassword` → hasło App Password
+Odczytaj z `.claude/user-profile.json`: `google_email`, `gmail_smtp_app_password`.
 
-Jeśli `gmailAppPassword` jest puste → pomiń wysyłkę, zapisz plik i powiadom użytkownika:
-> ⚠️ Brak Gmail App Password w `.claude/user-profile.json` — uzupełnij żeby włączyć wysyłkę emaili.
-
-Jeśli hasło jest ustawione, użyj Bash żeby wysłać przez curl:
+Wyślij przez nodemailer (Bash → Node.js):
 
 ```bash
-EMAIL_FROM="kozlowski.mateusz.praca@gmail.com"
-EMAIL_TO="[adres HR z oferty]"
-APP_PASS="[gmailAppPassword z user-profile.json]"
-SUBJECT="[Stanowisko] — Mateusz Markowski"
-BODY="[cover letter z 1c]
-
---
-Mateusz Markowski
-kozlowski.mateusz.praca@gmail.com
-https://www.linkedin.com/in/mateusz-kozłowski-2b576114b"
-
-curl -s --url "smtps://smtp.gmail.com:465" \
-  --ssl-reqd \
-  --mail-from "$EMAIL_FROM" \
-  --mail-rcpt "$EMAIL_TO" \
-  --user "$EMAIL_FROM:$APP_PASS" \
-  -T <(printf "From: Mateusz Markowski <%s>\r\nTo: %s\r\nSubject: %s\r\nContent-Type: text/plain; charset=UTF-8\r\n\r\n%s" \
-    "$EMAIL_FROM" "$EMAIL_TO" "$SUBJECT" "$BODY")
+node -e "
+const nodemailer = require('/home/user/cv-app/node_modules/nodemailer');
+const t = nodemailer.createTransport({
+  host: 'smtp.gmail.com', port: 465, secure: true,
+  auth: { user: 'GOOGLE_EMAIL', pass: 'GMAIL_APP_PASS' }
+});
+t.sendMail({
+  from: 'Mateusz Markowski <GOOGLE_EMAIL>',
+  to: 'EMAIL_HR',
+  subject: 'STANOWISKO — Mateusz Markowski',
+  text: 'COVER_LETTER\n\n--\nMateusz Markowski\nkozlowski.mateusz.praca@gmail.com\nhttps://www.linkedin.com/in/mateusz-kozłowski-2b576114b'
+}).then(i => console.log('SENT:' + i.messageId)).catch(e => { console.error('ERR:' + e.message); process.exit(1); });
+"
 ```
 
-Sprawdź exit code: 0 = sukces, inne = błąd (zaraportuj).
+### 1g. Wyślij powiadomienie email do Mateusza (ZAWSZE)
 
-### 1g. Wyślij powiadomienie email do Mateusza
+Wyślij email po każdej aplikacji — zarówno po sukcesie jak i po błędzie/problemie.
 
-Wyślij email z raportem **tylko jeśli aplikacja została faktycznie wysłana** (Playwright submit zakończony sukcesem LUB email HR wysłany przez curl). Jeśli formularz wymaga ręcznego dokończenia lub wysyłka się nie powiodła → nie wysyłaj emaila powiadomienia, tylko napisz o tym w raporcie w czacie.
+Nadawca i odbiorca: `google_email` z user-profile.json (self-send).
+Hasło: `gmail_smtp_app_password` z user-profile.json.
 
-Odczytaj z `.claude/user-profile.json` → `emailNotifications` (from, to, gmailAppPassword).
-Pomiń jeśli `gmailAppPassword` jest puste.
+```bash
+node -e "
+const nodemailer = require('/home/user/cv-app/node_modules/nodemailer');
+const t = nodemailer.createTransport({
+  host: 'smtp.gmail.com', port: 465, secure: true,
+  auth: { user: 'GOOGLE_EMAIL', pass: 'GMAIL_APP_PASS' }
+});
+t.sendMail({
+  from: 'Pipeline Pracy <GOOGLE_EMAIL>',
+  to: 'GOOGLE_EMAIL',
+  subject: '[STATUS] Aplikacja: FIRMA — STANOWISKO',
+  text: \`STATUS: SUKCES/BLAD
+FIRMA: NAZWA
+STANOWISKO: ROLA
+LINK: URL_OFERTY
+DATA: DATA
 
-Treść emaila:
+CO WIEM O FIRMIE:
+OPIS_FIRMY
 
+DLACZEGO TU APLIKUJEMY:
+UZASADNIENIE
+
+SZANSA NA ODPOWIEDŹ: XX%
+
+COVER LETTER:
+COVER_LETTER\`
+}).then(i => console.log('SENT:' + i.messageId)).catch(e => console.error('ERR:' + e.message));
+"
 ```
-Subject: [✅/📁] Aplikacja: [Firma] — [Stanowisko]
-
-Aplikacja [N/3] złożona [data]
-
-FIRMA: [Nazwa]
-STANOWISKO: [Rola]
-SPOSÓB: [Playwright / Email do HR / Wymaga ręcznego dokończenia]
-DOPASOWANIE: [X/Y skillów]
-
---- CO WIEM O FIRMIE ---
-[3-5 zdań]
-
---- DLACZEGO TU APLIKUJEMY ---
-[2-3 zdania]
-
---- SZACOWANA SZANSA NA ODPOWIEDŹ: XX% ---
-[Uzasadnienie]
-
---- PLIK APLIKACJI ---
-applications/[nazwa-pliku].md
-
---- COVER LETTER ---
-[pełny tekst cover letter]
-```
-
-Wyślij tym samym curl co w 1e-email, ale `EMAIL_TO` = wartość `emailNotifications.to` z user-profile.json.
 
 ### 1f. Zapisz plik aplikacji
 

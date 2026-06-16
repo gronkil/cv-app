@@ -91,16 +91,31 @@ Uruchom jednego sub-agenta weryfikacyjnego. Przekaż mu:
 > - `warto_rozwazyc`: oferty 4-10 (wynik ≥ 60) z krótkim komentarzem
 > - `pomijamy`: reszta z jednozdaniowym powodem
 
-## Krok 4 — Aplikowanie do top 3
+## Krok 4 — Aplikowanie do top 3 (w pełni automatyczne)
 
-Dla każdej z 3 ofert z `top3` wykonaj pełen proces aplikacyjny (jak w `/aplikuj-prace`):
+Dla każdej z 3 ofert z `top3` wykonaj pełen proces bez ingerencji użytkownika:
 
 1. WebFetch URL oferty → wymagania, email HR, URL formularza
 2. Napisz spersonalizowany cover letter (3 akapity, max 180 słów)
-3. Jeśli formularz online → Playwright (browser_navigate → browser_fill → browser_click submit → browser_screenshot)
-4. Jeśli email HR → curl + Gmail SMTP (dane z user-profile.json); jeśli brak emaila HR → pomiń
-5. Zapisz plik: `applications/YYYY-MM-DD_Firma_Stanowisko.md`
-6. Wyślij email powiadomienie do Mateusza tylko jeśli aplikacja faktycznie została wysłana (Playwright submit lub email HR) — nie wysyłaj jeśli formularz wymaga ręcznego dokończenia lub wysyłka się nie powiodła
+3. **Zaloguj się przez Playwright + Google OAuth:**
+   - `browser_navigate` → strona portalu
+   - Kliknij "Zaloguj przez Google" / "Sign in with Google"
+   - Wpisz `google_email` i `google_password` z `.claude/user-profile.json`
+   - Poczekaj na redirect z powrotem do portalu
+4. Wypełnij i wyślij formularz aplikacyjny przez Playwright:
+   - `browser_navigate` → URL oferty
+   - Kliknij "Aplikuj" / "Apply"
+   - Wypełnij pola: imię, email, cover letter, wynagrodzenie, okres wypowiedzenia
+   - `browser_screenshot` przed submit
+   - Kliknij Submit
+   - `browser_screenshot` po submit — zapisz potwierdzenie
+5. Jeśli jest email HR → wyślij przez Gmail SMTP (nodemailer, dane z user-profile.json)
+6. Zapisz plik: `applications/YYYY-MM-DD_Firma_Stanowisko.md` ze statusem i screenshotami
+7. **Zawsze wyślij email powiadomienie do Mateusza** (niezależnie czy sukces czy błąd):
+   - Nadawca/odbiorca: `google_email` z user-profile.json
+   - Przez nodemailer z `gmail_smtp_app_password`
+   - Temat: `[✅ Wysłano / ❌ Błąd] Aplikacja: Firma — Stanowisko`
+   - Treść: cover letter + status + link do oferty + powód błędu jeśli wystąpił
 
 ## Krok 5 — Aktualizacja rejestru
 
@@ -152,6 +167,8 @@ Czy chcesz żebym zaaplikował do którejś z poniższych?
 - NIE wymyślaj danych których nie ma w CV
 - Każdy cover letter musi być unikatowy i spersonalizowany
 - Jeśli sub-agent zwróci pustą listę → pomiń, nie blokuj reszty pipeline
-- Jeśli Playwright nie może wysłać formularza → oznacz jako "📁 Wymaga ręcznego dokończenia" i kontynuuj
+- BRAK "📁 Wymaga ręcznego dokończenia" — zawsze próbuj zalogować się przez Google OAuth i aplikować automatycznie
+- Jeśli logowanie przez Google nie działa (2FA, captcha, błąd sieci) → zapisz plik z opisem błędu i wyślij email z informacją o problemie
+- Email do Mateusza wysyłaj ZAWSZE — zarówno po sukcesie jak i po błędzie
 
 $ARGUMENTS
