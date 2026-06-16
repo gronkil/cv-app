@@ -1,1 +1,76 @@
-{"applied":[]}
+{
+  "applied": [
+    {
+      "date": "2026-06-15",
+      "company": "PHOTOAID S.A.",
+      "role": "AI-First Senior Frontend Developer",
+      "url": "https://theprotocol.it/szczegoly/praca/ai-first-senior-frontend-developer-warszawa-zawrat-2a,oferta,67360000-5e03-2eb4-4d0a-08deab4ee15a",
+      "status": "manual",
+      "file": "applications/2026-06-15_PHOTOAID_AIFirstSeniorFrontendDeveloper.md",
+      "score": 95
+    },
+    {
+      "date": "2026-06-15",
+      "company": "TeamQuest",
+      "role": "Senior Fullstack Developer",
+      "url": "https://bulldogjob.pl/companies/jobs/208213-senior-fullstack-developer-warszawa-teamquest",
+      "status": "manual",
+      "file": "applications/2026-06-15_TeamQuest_SeniorFullstackDeveloper.md",
+      "score": 97
+    },
+    {
+      "date": "2026-06-15",
+      "company": "Otterly AI",
+      "role": "Senior Fullstack Developer (React/Node.js)",
+      "url": "https://justjoin.it/job-offer/otterly-ai-senior-fullstack-developer-react-node-js--warszawa-javascript",
+      "status": "manual",
+      "file": "applications/2026-06-15_OtterlyAI_SeniorFullstackDeveloper.md",
+      "score": 90
+    },
+    {
+      "date": "2026-06-15",
+      "company": "Accenture",
+      "role": "Frontend Engineer – AI Solutions (AI&Data)",
+      "url": "https://justjoin.it/job-offer/accenture-frontend-engineer---ai-solutions-ai-data-evergreen-open--warszawa-javascript",
+      "status": "manual",
+      "file": "applications/2026-06-15_Accenture_FrontendEngineerAISolutions.md",
+      "score": 80
+    },
+    {
+      "date": "2026-06-15",
+      "company": "Scalo",
+      "role": "Senior Fullstack Developer (React + Node.js + AWS)",
+      "url": "https://solid.jobs/offer/29989/scalo-senior-fullstack-developer-react--nodejs--aws",
+      "status": "manual",
+      "file": "applications/2026-06-15_Scalo_SeniorFullstackDeveloper.md",
+      "score": 82
+    },
+    {
+      "date": "2026-06-16",
+      "company": "Capgemini Polska",
+      "role": "Fullstack Gen AI Developer",
+      "url": "https://justjoin.it/job-offer/capgemini-polska-fullstack-gen-ai-developer-warszawa-ai-f93f1be8",
+      "status": "manual",
+      "file": "applications/2026-06-16_Capgemini_Fullstack_Gen_AI_Developer.md",
+      "score": 72
+    },
+    {
+      "date": "2026-06-16",
+      "company": "GreenMinds Sp. z o.o.",
+      "role": "Senior Full Stack Developer (React/Node.js)",
+      "url": "https://justjoin.it/job-offer/greenminds-sp-z-o-o--senior-full-stack-developer-react-node-js--warszawa-javascript",
+      "status": "manual",
+      "file": "applications/2026-06-16_GreenMinds_Senior_Full_Stack_Developer.md",
+      "score": 83
+    },
+    {
+      "date": "2026-06-16",
+      "company": "Grid Dynamics Poland",
+      "role": "Fullstack Developer (Kotlin+React)",
+      "url": "https://justjoin.it/job-offer/grid-dynamics-poland-fullstack-developer-kotlin-react--warszawa-java",
+      "status": "manual",
+      "file": "applications/2026-06-16_Grid_Dynamics_Fullstack_Kotlin_React.md",
+      "score": 72
+    }
+  ]
+}
