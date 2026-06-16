@@ -1,1 +1,28 @@
-{"applied":[]}
+{
+  "applied": [
+    {
+      "url": "https://justjoin.it/job-offer/otterly-ai-senior-fullstack-developer-react-node-js--warszawa-javascript",
+      "company": "Otterly AI",
+      "role": "Senior Fullstack Developer (React/Node.js)",
+      "date": "2026-06-16",
+      "status": "pending_manual",
+      "notes": "Oferta może być wygasła — sprawdź JustJoin.it lub kontakt przez LinkedIn"
+    },
+    {
+      "url": "https://theprotocol.it/szczegoly/praca/ai-first-senior-frontend-developer-warszawa-zawrat-2a,oferta,67360000-5e03-2eb4-4d0a-08deab4ee15a",
+      "company": "PHOTOAID S.A.",
+      "role": "AI-First Senior Frontend Developer",
+      "date": "2026-06-16",
+      "status": "pending_manual",
+      "notes": "Formularz: https://careers.photoaid.com/l/en/o/senior-fontend-engineer"
+    },
+    {
+      "url": "https://justjoin.it/job-offer/link-group-fullstack-engineer---node-react-typescript-ai-solutions-warszawa-javascript",
+      "company": "Link Group",
+      "role": "Fullstack Engineer (Node/React/TypeScript + AI Solutions)",
+      "date": "2026-06-16",
+      "status": "pending_manual",
+      "notes": "PILNE — wygasa 21.06.2026! Aplikuj przez JustJoin.it"
+    }
+  ]
+}
