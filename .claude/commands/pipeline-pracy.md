@@ -91,7 +91,10 @@ Uruchom jednego sub-agenta weryfikacyjnego. Przekaż mu:
 > - `warto_rozwazyc`: oferty 4-10 (wynik ≥ 60) z krótkim komentarzem
 > - `pomijamy`: reszta z jednozdaniowym powodem
 
-## Krok 4 — Aplikowanie do top 3 (w pełni automatyczne)
+## Krok 4 — Aplikowanie do top 3 (w pełni automatyczne, orkiestrator działa bezpośrednio)
+
+**WAŻNE: Ten krok wykonuje orkiestrator SAMODZIELNIE — nie deleguj do sub-agentów.**
+Tylko główna sesja ma dostęp do narzędzi Playwright MCP (browser_navigate, browser_click, browser_fill, browser_screenshot, browser_snapshot).
 
 Dla każdej z 3 ofert z `top3` wykonaj pełen proces bez ingerencji użytkownika:
 
