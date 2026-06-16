@@ -1,7 +1,9 @@
 Jesteś orkiestratorem procesu szukania i aplikowania na pracę w imieniu Mateusza Markowskiego.
 Koordynujesz sub-agentów, zbierasz wyniki, weryfikujesz oferty i aplikujesz do top 3.
 
-## Krok 0 — Przygotowanie danych
+## Krok 0 — Przygotowanie i weryfikacja środowiska
+
+**Sprawdź Playwright:** Wywołaj `ToolSearch` z query `select:mcp__playwright__browser_navigate`. Jeśli tools się załadują → tryb AUTO (pełne aplikowanie). Jeśli "No matching deferred tools found" → tryb MANUAL (zapisz cover lettery, poinformuj użytkownika).
 
 Przeczytaj równolegle:
 - `src/data/defaultCv.ts` → top skille (level 4-5), stack, lata doświadczenia, summary
@@ -87,14 +89,23 @@ Uruchom jednego sub-agenta weryfikacyjnego. Przekaż mu:
 
 ## Krok 4 — Aplikowanie do top 3
 
-Dla każdej z 3 ofert z `top3` wykonaj pełen proces aplikacyjny (jak w `/aplikuj-prace`):
+Dla każdej z 3 ofert z `top3` wykonaj pełen proces aplikacyjny:
 
 1. WebFetch URL oferty → wymagania, email HR, URL formularza
 2. Napisz spersonalizowany cover letter (3 akapity, max 180 słów)
-3. Jeśli formularz online → Playwright (browser_navigate → browser_fill → browser_click submit → browser_screenshot)
-4. Jeśli email HR → curl + Gmail SMTP (dane z user-profile.json); jeśli brak emaila HR → pomiń
-5. Zapisz plik: `applications/YYYY-MM-DD_Firma_Stanowisko.md`
-6. Wyślij email powiadomienie do Mateusza tylko jeśli aplikacja faktycznie została wysłana (Playwright submit lub email HR) — nie wysyłaj jeśli formularz wymaga ręcznego dokończenia lub wysyłka się nie powiodła
+3. **Tryb AUTO (Playwright dostępny):**
+   - `mcp__playwright__browser_navigate` → URL oferty na JustJoin.it
+   - `mcp__playwright__browser_snapshot` → znajdź przycisk "Aplikuj"
+   - `mcp__playwright__browser_click` → kliknij "Aplikuj"
+   - `mcp__playwright__browser_snapshot` → zidentyfikuj pola formularza
+   - Wypełnij: imię, email, LinkedIn, cover letter, wynagrodzenie
+   - `mcp__playwright__browser_screenshot` → zrzut przed wysłaniem
+   - Jeśli brak captcha/uploadu CV → kliknij submit
+   - `mcp__playwright__browser_screenshot` → potwierdzenie
+4. **Tryb MANUAL (Playwright niedostępny):** zapisz cover letter do pliku z instrukcją ręcznego złożenia
+5. Jeśli email HR widoczny → wyślij przez curl + Gmail SMTP (dane z user-profile.json)
+6. Zapisz plik: `applications/YYYY-MM-DD_Firma_Stanowisko.md`
+7. Wyślij email powiadomienie do Mateusza tylko jeśli aplikacja faktycznie została wysłana (Playwright submit lub email HR) — nie wysyłaj jeśli formularz wymaga ręcznego dokończenia
 
 ## Krok 5 — Aktualizacja rejestru
 

@@ -77,19 +77,28 @@ DODATKOWE PYTANIA (typowe):
 
 ### 1e. Wyślij aplikację przez Playwright
 
-Użyj narzędzi Playwright (browser_navigate, browser_fill, browser_click, browser_screenshot) aby wypełnić i wysłać formularz:
+Najpierw załaduj narzędzia przez ToolSearch: `select:mcp__playwright__browser_navigate,mcp__playwright__browser_snapshot,mcp__playwright__browser_screenshot,mcp__playwright__browser_click,mcp__playwright__browser_fill,mcp__playwright__browser_type,mcp__playwright__browser_select_option`
 
-1. `browser_navigate` → URL strony aplikowania (przycisk "Aplikuj"/"Apply now" z 1a)
-2. Zrób screenshot żeby zobaczyć pola formularza
-3. Wypełnij pola danymi z 1d:
-   - Pola imię/email/telefon/LinkedIn → odpowiednie wartości
-   - Pole cover letter / list motywacyjny → wklej tekst z 1c
-   - Pole wynagrodzenie / oczekiwania → z user-profile.json
-4. `browser_screenshot` przed wysłaniem (do pliku aplikacji)
-5. Kliknij przycisk submit ("Wyślij"/"Apply"/"Aplikuj")
-6. `browser_screenshot` po wysłaniu — zapisz potwierdzenie
+Jeśli ToolSearch zwróci "No matching deferred tools found" → Playwright niedostępny → pomiń ten krok, zapisz plik z adnotacją "📁 Wymaga ręcznego dokończenia" i przejdź do 1f.
 
-**Jeśli formularz wymaga logowania / captcha / attachmentu CV:**
+**Flow dla JustJoin.it:**
+1. `mcp__playwright__browser_navigate` → URL oferty (np. `https://justjoin.it/job-offer/...`)
+2. `mcp__playwright__browser_snapshot` → znajdź przycisk "Aplikuj" / "Apply" (szukaj tekstu lub aria-label)
+3. `mcp__playwright__browser_click` → kliknij "Aplikuj"
+4. `mcp__playwright__browser_snapshot` → zidentyfikuj pola formularza (może wyskoczyć modal lub nowa strona)
+5. Wypełnij pola:
+   - Imię/Nazwisko → `mcp__playwright__browser_fill` z "Mateusz Markowski"
+   - Email → `mcp__playwright__browser_fill` z "kozlowski.mateusz.praca@gmail.com"
+   - Telefon → zostaw puste jeśli nieobowiązkowe lub wpisz z user-profile.json
+   - LinkedIn → `mcp__playwright__browser_fill` z "https://www.linkedin.com/in/mateusz-kozłowski-2b576114b"
+   - Cover letter / Wiadomość → `mcp__playwright__browser_fill` z tekstem z 1c
+   - Wynagrodzenie / Oczekiwania → z user-profile.json (`salaryExpectation.label`)
+6. `mcp__playwright__browser_screenshot` → zrzut przed wysłaniem
+7. **Sprawdź czy nie ma pól**: "Załącz CV" (upload pliku) lub reCAPTCHA → jeśli tak → STOP, oznacz "📁 Wymaga ręcznego dokończenia"
+8. `mcp__playwright__browser_click` → przycisk "Wyślij" / "Submit" / "Apply"
+9. `mcp__playwright__browser_screenshot` → zrzut po wysłaniu (potwierdzenie)
+
+**Jeśli formularz wymaga logowania / captcha / uploadu CV:**
 - Nie klikaj submit
 - Zapisz plik aplikacji (krok 1f) z adnotacją "Wymaga ręcznego dokończenia"
 - Powiadom użytkownika w raporcie
