@@ -34,6 +34,27 @@
       "role": "AI-First Senior Frontend Developer",
       "date": "2026-06-15",
       "status": "pending_manual"
+    },
+    {
+      "url": "https://4programmers.net/Praca/38353-senior_full_stack_ai_application_developer",
+      "company": "EY",
+      "role": "Senior Full Stack AI Application Developer",
+      "date": "2026-06-16",
+      "status": "pending_manual"
+    },
+    {
+      "url": "https://justjoin.it/job-offer/citigroup-senior-gen-ai-developer-warszawa-ai",
+      "company": "Citigroup",
+      "role": "Senior Gen AI Developer",
+      "date": "2026-06-16",
+      "status": "pending_manual"
+    },
+    {
+      "url": "https://justjoin.it/job-offer/greenminds-sp-z-o-o--senior-full-stack-developer-react-node-js--warszawa-javascript",
+      "company": "GreenMinds Sp. z o.o.",
+      "role": "Senior Full Stack Developer (React / Node.js)",
+      "date": "2026-06-16",
+      "status": "pending_manual"
     }
   ]
 }
