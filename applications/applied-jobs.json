@@ -80,6 +80,24 @@
       "status": "manual",
       "file": "applications/2026-06-16_LinkGroup_SeniorFrontendDeveloper.md",
       "score": 88
+    },
+    {
+      "date": "2026-06-16",
+      "company": "Transition Technologies MS",
+      "role": "Fullstack Engineer (Senior)",
+      "url": "https://rocketjobs.pl/oferta-pracy/transition-technologies-ms-fullstack-engineer-warszawa-inzynieria-technologia-konstrukcje",
+      "status": "manual",
+      "file": "applications/2026-06-16_TransitionTechnologiesMS_FullstackEngineer.md",
+      "score": 90
+    },
+    {
+      "date": "2026-06-16",
+      "company": "nieznana (TheProtocol.it — Cloudflare block)",
+      "role": "Senior Fullstack Developer",
+      "url": "https://theprotocol.it/praca/senior-fullstack-developer-warszawa,oferta,34340000-2bf0-060b-6b64-08de6980a95a",
+      "status": "manual",
+      "file": "applications/2026-06-16_TheProtocol_SeniorFullstackDeveloper.md",
+      "notes": "Strona chroniona przez Cloudflare — nie udało się pobrać szczegółów oferty automatycznie. Cover letter napisany na podstawie typowych wymagań Senior Fullstack (React+TS+Kotlin+Spring). Wymaga ręcznego otwarcia URL i aplikowania."
     }
   ]
 }
