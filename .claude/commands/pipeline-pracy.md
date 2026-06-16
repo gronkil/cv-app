@@ -74,12 +74,17 @@ Uruchom jednego sub-agenta weryfikacyjnego. Przekaż mu:
 - Instrukcję:
 
 > Oceń każdą ofertę (0-100 pkt) według:
-> - Pokrycie skillów must-have (35 pkt) — ile wymaganych technologii Mateusz ma na level 4-5
+> - Pokrycie skillów must-have (30 pkt) — ile wymaganych technologii Mateusz ma na level 4-5
 > - Seniority fit (20 pkt) — czy rola pasuje do 7+ lat
 > - Wynagrodzenie (20 pkt) — czy widełki są ≥ 21 000 PLN brutto (lub nie podano → 10 pkt)
+> - Język angielski (15 pkt) — WAŻNE: Mateusz ma angielski B1, oferty wymagające B2/C1 są ryzykiem odrzucenia:
+>   - oferta po polsku / angielski niewymagany = 15 pkt
+>   - angielski opcjonalny lub "mile widziany" = 10 pkt
+>   - B1 akceptowalny wprost = 8 pkt
+>   - B2 wymagany = 3 pkt
+>   - C1/C2 lub "fluent English" wymagany = 0 pkt
 > - AI/GenAI atut (10 pkt) — jeśli oferta wymaga AI doświadczenia → +10 pkt za nagrodę Rzeczpospolitej Cyfrowej
-> - Remote/hybrid (10 pkt) — fully remote = 10, hybrid = 7, on-site = 0
-> - Język angielski (5 pkt) — oferta PL / angielski niewymagany lub opcjonalny = 5 pkt; B1 wystarczy = 3 pkt; B2/C1 wymagany = 0 pkt (Mateusz ma poziom B1 — oferty wymagające płynnego angielskiego to ryzyko odrzucenia)
+> - Remote/hybrid (5 pkt) — fully remote = 5, hybrid = 3, on-site = 0
 >
 > Zwróć:
 > - `top3`: 3 oferty z najwyższym wynikiem (z uzasadnieniem)
