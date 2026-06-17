@@ -2,12 +2,7 @@
   "enableAllProjectMcpServers": true,
   "mcpServers": {
     "playwright": {
-      "command": "/opt/node22/bin/playwright-mcp",
-      "args": [
-        "--browser", "chromium",
-        "--executable-path", "/opt/pw-browsers/chromium-1194/chrome-linux/chrome",
-        "--headless"
-      ]
+      "url": "http://localhost:3456/mcp"
     }
   },
   "hooks": {
