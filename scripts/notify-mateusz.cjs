@@ -1,7 +1,8 @@
 const nodemailer = require('nodemailer');
 
-const USER_EMAIL = process.env.CLAUDE_CODE_USER_EMAIL || 'fargonmk@gmail.com';
-const PASS = process.env.GOOGLE_PASSWORD;
+const profile = JSON.parse(require('fs').readFileSync(__dirname + '/../.claude/user-profile.json', 'utf8'));
+const USER_EMAIL = profile.google_email;
+const PASS = profile.gmail_smtp_app_password;
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
