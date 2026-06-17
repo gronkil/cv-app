@@ -2,10 +2,10 @@
   "enableAllProjectMcpServers": true,
   "mcpServers": {
     "playwright": {
-      "command": "/opt/node22/bin/playwright-mcp",
+      "command": "npx",
       "args": [
+        "@playwright/mcp@latest",
         "--browser", "chromium",
-        "--executable-path", "/opt/pw-browsers/chromium-1194/chrome-linux/chrome",
         "--headless"
       ]
     }
