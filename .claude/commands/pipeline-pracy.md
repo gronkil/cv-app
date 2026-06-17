@@ -91,38 +91,46 @@ Uruchom jednego sub-agenta weryfikacyjnego. Przekaż mu:
 > - `warto_rozwazyc`: oferty 4-10 (wynik ≥ 60) z krótkim komentarzem
 > - `pomijamy`: reszta z jednozdaniowym powodem
 
-## Krok 4 — Aplikowanie do top 3 (w pełni automatyczne, orkiestrator działa bezpośrednio)
+## Krok 4 — Przygotowanie aplikacji i cover letterów (orkiestrator działa bezpośrednio)
 
 **WAŻNE: Ten krok wykonuje orkiestrator SAMODZIELNIE — nie deleguj do sub-agentów.**
-Tylko główna sesja ma dostęp do narzędzi Playwright MCP (browser_navigate, browser_click, browser_fill, browser_screenshot, browser_snapshot).
 
-Dla każdej z 3 ofert z `top3` wykonaj pełen proces bez ingerencji użytkownika:
+**ZAKAZ wysyłania emaili do HR, rekruterów ani żadnych zewnętrznych adresów.**
+Jedyny email jaki wolno wysłać to podsumowanie DO MATEUSZA na jego własny adres.
 
-1. WebFetch URL oferty → wymagania, email HR, URL formularza
+Dla każdej z 3 ofert z `top3`:
+
+1. WebFetch URL oferty → wymagania, email HR (tylko do odnotowania w pliku), URL formularza
 2. Napisz spersonalizowany cover letter (3 akapity, max 180 słów)
-3. **Zaloguj się przez Playwright + Google OAuth:**
+3. **Zaloguj się przez Playwright + Google OAuth i złóż aplikację przez portal:**
    - `browser_navigate` → strona portalu
    - Kliknij "Zaloguj przez Google" / "Sign in with Google"
    - Wpisz `google_email` i `google_password` z `.claude/user-profile.json`
    - Poczekaj na redirect z powrotem do portalu
-4. Wypełnij i wyślij formularz aplikacyjny przez Playwright:
    - `browser_navigate` → URL oferty
    - Kliknij "Aplikuj" / "Apply"
    - Wypełnij pola: imię, email, cover letter, wynagrodzenie, okres wypowiedzenia
    - `browser_screenshot` przed submit
    - Kliknij Submit
    - `browser_screenshot` po submit — zapisz potwierdzenie
-5. Jeśli jest email HR → wyślij przez Gmail SMTP (nodemailer, dane z user-profile.json)
-6. Zapisz plik: `applications/YYYY-MM-DD_Firma_Stanowisko.md` ze statusem i screenshotami
-7. **Zawsze wyślij email powiadomienie do Mateusza** (niezależnie czy sukces czy błąd):
-   - Nadawca/odbiorca: `google_email` z user-profile.json
-   - Przez nodemailer z `gmail_smtp_app_password`
-   - Temat: `[✅ Wysłano / ❌ Błąd] Aplikacja: Firma — Stanowisko`
-   - Treść: cover letter + status + link do oferty + powód błędu jeśli wystąpił
+4. Zapisz plik: `applications/YYYY-MM-DD_Firma_Stanowisko.md` ze statusem, screenshotami i cover letterem
 
-## Krok 5 — Aktualizacja rejestru
+## Krok 5 — Email podsumowujący DO MATEUSZA + aktualizacja rejestru
 
-Po udanym wysłaniu każdej aplikacji dopisz do `applications/applied-jobs.json`:
+**Wyślij JEDEN zbiorczy email do Mateusza** przez nodemailer (dane z `.claude/user-profile.json`):
+- Nadawca: `google_email` (jego własny adres)
+- Odbiorca: `google_email` (ten sam — do siebie)
+- Temat: `[Pipeline pracy YYYY-MM-DD] Znalazłem N ofert — top 3 do przejrzenia`
+- Treść emaila musi zawierać:
+  1. **Lista top 3** — firma, stanowisko, wynik, link, email HR (do ręcznego wysłania)
+  2. **Pełna treść każdego cover lettera** (gotowa do skopiowania i wysyłki)
+  3. **Lista "warto rozważyć"** z linkami
+  4. **Statystyki** (ile portali, ile ofert)
+  5. **Instrukcja**: "Skopiuj cover letter i wyślij ręcznie na: [email HR]"
+
+**NIE wysyłaj emaili do żadnych firm, HR-ów ani rekruterów.** Tylko do Mateusza.
+
+Po udanym wysłaniu każdej aplikacji (przez Playwright) dopisz do `applications/applied-jobs.json`:
 
 ```json
 {
@@ -170,8 +178,9 @@ Czy chcesz żebym zaaplikował do którejś z poniższych?
 - NIE wymyślaj danych których nie ma w CV
 - Każdy cover letter musi być unikatowy i spersonalizowany
 - Jeśli sub-agent zwróci pustą listę → pomiń, nie blokuj reszty pipeline
-- BRAK "📁 Wymaga ręcznego dokończenia" — zawsze próbuj zalogować się przez Google OAuth i aplikować automatycznie
-- Jeśli logowanie przez Google nie działa (2FA, captcha, błąd sieci) → zapisz plik z opisem błędu i wyślij email z informacją o problemie
-- Email do Mateusza wysyłaj ZAWSZE — zarówno po sukcesie jak i po błędzie
+- **BEZWZGLĘDNY ZAKAZ wysyłania emaili na adresy HR/firm/rekruterów** — tylko Playwright przez portal
+- Email wysyłasz WYŁĄCZNIE do Mateusza (na jego własny adres z user-profile.json), z pełnym raportem
+- Jeśli logowanie przez Google nie działa → zapisz plik z opisem błędu i wyślij email do Mateusza z informacją o problemie
+- Email do Mateusza wysyłaj ZAWSZE na końcu — zarówno po sukcesie jak i po błędzie
 
 $ARGUMENTS

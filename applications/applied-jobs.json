@@ -55,6 +55,33 @@
       "role": "Senior Full Stack Developer (React / Node.js)",
       "date": "2026-06-16",
       "status": "pending_manual"
+    },
+    {
+      "url": "https://www.pracuj.pl/praca/fullstack-developer-vibe-coder-ai-+-automatyzacje-warszawa-syta-114z,oferta,1004266129",
+      "company": "Odylion",
+      "role": "Fullstack Developer & Vibe Coder (AI + Automatyzacje)",
+      "date": "2026-06-17",
+      "status": "cover_letter_ready",
+      "hr_email": "hello@odylion.com",
+      "notes": "Cover letter gotowy. Email nie wysłany — SMTP zablokowany w środowisku CI."
+    },
+    {
+      "url": "https://theprotocol.it/praca/senior-react-developer---senior-frontend-developer-warszawa-powazkowska-44c,oferta,a68b0000-d467-42c7-73dc-08de32bfd60d",
+      "company": "Pivotal Polska",
+      "role": "Senior React Developer / Senior Frontend Developer",
+      "date": "2026-06-17",
+      "status": "cover_letter_ready",
+      "hr_email": "rekrutacja@pivotal.pl",
+      "notes": "Cover letter gotowy. Email nie wysłany — SMTP zablokowany w środowisku CI."
+    },
+    {
+      "url": "https://theprotocol.it/szczegoly/praca/react-developer-mui-9-migration-warszawa,oferta,cb780000-1098-7a89-51f6-08dea506e90b",
+      "company": "YOUR ITEAMS",
+      "role": "React Developer (MUI 9 migration)",
+      "date": "2026-06-17",
+      "status": "cover_letter_ready",
+      "hr_email": "anna.sudol@youriteams.com",
+      "notes": "Cover letter gotowy. Email nie wysłany — SMTP zablokowany w środowisku CI. Silne dopasowanie: MUI v9 aktywnie używane."
     }
   ]
 }
