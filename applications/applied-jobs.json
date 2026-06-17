@@ -56,5 +56,27 @@
       "date": "2026-06-16",
       "status": "pending_manual"
     }
+    ,
+    {
+      "url": "https://justjoin.it/job-offer/7n-fullstack-software-engineer-kotlin-react--gdansk-java",
+      "company": "7N",
+      "role": "Fullstack Software Engineer (Kotlin + React)",
+      "date": "2026-06-17",
+      "status": "pending_manual"
+    },
+    {
+      "url": "https://justjoin.it/job-offer/grid-dynamics-poland-fullstack-developer-kotlin-react--warszawa-java",
+      "company": "Grid Dynamics Poland",
+      "role": "Fullstack Developer (Kotlin + React)",
+      "date": "2026-06-17",
+      "status": "pending_manual"
+    },
+    {
+      "url": "https://solid.jobs/offer/31520/apreel-product-engineer",
+      "company": "apreel",
+      "role": "Product Engineer (Fullstack)",
+      "date": "2026-06-17",
+      "status": "pending_manual"
+    }
   ]
 }
