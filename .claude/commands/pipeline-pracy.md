@@ -5,7 +5,7 @@ Koordynujesz sub-agentów, zbierasz wyniki, weryfikujesz oferty i aplikujesz do 
 
 Przeczytaj równolegle:
 - `src/data/defaultCv.ts` → top skille (level 4-5), stack, lata doświadczenia, summary
-- `.claude/user-profile.json` → oczekiwane wynagrodzenie, okres wypowiedzenia
+- `.env` → oczekiwane wynagrodzenie (USER_SALARY_MIN), okres wypowiedzenia (NOTICE_PERIOD_DAYS)
 - `applications/applied-jobs.json` → lista już aplikowanych URLi (jeśli plik nie istnieje → utwórz: `{"applied":[]}`)
 
 Przygotuj `CV_SUMMARY` (1 akapit) do przekazania sub-agentom:
@@ -91,46 +91,98 @@ Uruchom jednego sub-agenta weryfikacyjnego. Przekaż mu:
 > - `warto_rozwazyc`: oferty 4-10 (wynik ≥ 60) z krótkim komentarzem
 > - `pomijamy`: reszta z jednozdaniowym powodem
 
-## Krok 4 — Przygotowanie aplikacji i cover letterów (orkiestrator działa bezpośrednio)
+## Krok 4 — Aplikacja przez Playwright (orkiestrator działa bezpośrednio)
 
 **WAŻNE: Ten krok wykonuje orkiestrator SAMODZIELNIE — nie deleguj do sub-agentów.**
 
-**ZAKAZ wysyłania emaili do HR, rekruterów ani żadnych zewnętrznych adresów.**
-Jedyny email jaki wolno wysłać to podsumowanie DO MATEUSZA na jego własny adres.
+### Dane kandydata (używaj wszędzie)
+- Imię i nazwisko: `Mateusz Markowski`
+- Email: `GOOGLE_EMAIL` z `.env`
+- Telefon: (zostaw puste jeśli niewymagane)
+- Wynagrodzenie: `USER_SALARY_MIN` z `.env`
+- Okres wypowiedzenia: `NOTICE_PERIOD_DAYS` z `.env`
+- CV: `src/data/defaultCv.ts` → summary jako cover letter
 
-Dla każdej z 3 ofert z `top3`:
+### Ładowanie sesji (zamiast OAuth)
+NIE loguj się przez `GOOGLE_EMAIL`/`GOOGLE_PASSWORD`.
+Użyj zapisanej sesji z `.google-session.json`:
+```javascript
+// W kontekście Playwright:
+storageState: ".google-session.json"
+```
+Sesja zawiera cookies JustJoin i Google — logowanie automatyczne.
 
-1. WebFetch URL oferty → wymagania, email HR (tylko do odnotowania w pliku), URL formularza
-2. Napisz spersonalizowany cover letter (3 akapity, max 180 słów)
-3. **Zaloguj się przez Playwright + Google OAuth i złóż aplikację przez portal:**
-   - `browser_navigate` → strona portalu
-   - Kliknij "Zaloguj przez Google" / "Sign in with Google"
-   - Wpisz `google_email` i `google_password` z `.claude/user-profile.json`
-   - Poczekaj na redirect z powrotem do portalu
-   - `browser_navigate` → URL oferty
-   - Kliknij "Aplikuj" / "Apply"
-   - Wypełnij pola: imię, email, cover letter, wynagrodzenie, okres wypowiedzenia
-   - `browser_screenshot` przed submit
-   - Kliknij Submit
-   - `browser_screenshot` po submit — zapisz potwierdzenie
-4. Zapisz plik: `applications/YYYY-MM-DD_Firma_Stanowisko.md` ze statusem, screenshotami i cover letterem
+### Dla każdej oferty z `top3`:
+
+1. **Przejdź do oferty:**
+   ```
+   browser_navigate(url)
+   browser_snapshot() → przeczytaj HTML formularza
+   ```
+
+2. **Znajdź i kliknij przycisk aplikacji:**
+   - Szukaj: "Aplikuj", "Apply", "Aplikuj teraz", "Apply now", "Złóż aplikację"
+   - Jeśli wymagane logowanie → sesja z `.google-session.json` powinna zalogować automatycznie
+   - `browser_click(przycisk_aplikuj)`
+   - `browser_snapshot()` → sprawdź czy pojawił się formularz
+
+3. **Przeczytaj formularz przez `browser_snapshot()`:**
+   - Zidentyfikuj WSZYSTKIE pola (input, textarea, select)
+   - Dla każdego pola zdecyduj co wpisać na podstawie danych kandydata
+   - Nie zgaduj — czytaj label/placeholder żeby wiedzieć co pole znaczy
+
+4. **Wypełnij pola:**
+   ```
+   browser_type("#field-name", "Mateusz Markowski")
+   browser_type("#field-email", GOOGLE_EMAIL)
+   browser_type("#field-salary", USER_SALARY_MIN)
+   browser_type("#field-notice", NOTICE_PERIOD_DAYS)
+   browser_type("#field-message", cover_letter)  ← jeśli wymagany
+   ```
+   Cover letter (jeśli wymagany):
+   > "Cześć, jestem Senior Fullstack Developerem z 7+ latami doświadczenia w PZU. Zbudowałem Assistance AI — platformę GenAI dla 1000 pracowników w 11 dni, wyróżnioną nagrodą Rzeczpospolitej Cyfrowej 2024. Stack: React/TypeScript/Kotlin/Spring Boot. Oczekiwania: [USER_SALARY_MIN] PLN B2B, dostępny od [NOTICE_PERIOD_DAYS] dni."
+
+5. **Zrób screenshot przed submitem:**
+   ```
+   browser_screenshot() → zapisz jako applications/YYYY-MM-DD_Firma_before.png
+   ```
+
+6. **Wyślij formularz:**
+   ```
+   browser_click(submit_button)
+   browser_snapshot() → sprawdź potwierdzenie
+   browser_screenshot() → zapisz jako applications/YYYY-MM-DD_Firma_after.png
+   ```
+
+7. **Weryfikacja sukcesu:**
+   - Szukaj tekstu: "Dziękujemy", "Thank you", "Aplikacja wysłana", "Application submitted"
+   - Jeśli błąd → zapisz błąd w pliku aplikacji i przejdź do następnej oferty
+
+8. **Zapisz plik:** `applications/YYYY-MM-DD_Firma_Stanowisko.md`
+
+### Obsługa błędów
+- Sesja wygasła → zapisz status `session_expired`, pomiń ofertę
+- Formularz nieznany → zrób `browser_snapshot()`, opisz co widzisz, zapisz status `form_unknown`
+- CAPTCHA → zapisz status `captcha_blocked`, pomiń ofertę
+- NIE przerywaj całego pipeline przez błąd jednej oferty
+
+### Zapisz plik aplikacji: `applications/YYYY-MM-DD_Firma_Stanowisko.md`
 
 ## Krok 5 — Email podsumowujący DO MATEUSZA + aktualizacja rejestru
 
-**Wyślij JEDEN zbiorczy email do Mateusza** przez nodemailer (dane z `.claude/user-profile.json`):
-- Nadawca: `google_email` (jego własny adres)
-- Odbiorca: `google_email` (ten sam — do siebie)
-- Temat: `[Pipeline pracy YYYY-MM-DD] Znalazłem N ofert — top 3 do przejrzenia`
+**Wyślij JEDEN zbiorczy email do Mateusza** przez nodemailer (dane z `.env`):
+- Nadawca: `GOOGLE_EMAIL` (jego własny adres)
+- Odbiorca: `GOOGLE_EMAIL` (ten sam — do siebie)
+- Temat: `[Pipeline pracy YYYY-MM-DD] Zaaplikowano do 3 ofert — status`
 - Treść emaila musi zawierać:
-  1. **Lista top 3** — firma, stanowisko, wynik, link, email HR (do ręcznego wysłania)
-  2. **Pełna treść każdego cover lettera** (gotowa do skopiowania i wysyłki)
-  3. **Lista "warto rozważyć"** z linkami
-  4. **Statystyki** (ile portali, ile ofert)
-  5. **Instrukcja**: "Skopiuj cover letter i wyślij ręcznie na: [email HR]"
+  1. **Lista top 3 zaaplikowanych** — firma, stanowisko, wynik, link do oferty, status aplikacji
+  2. **Lista "warto rozważyć"** z linkami
+  3. **Statystyki** (ile portali, ile ofert znaleziono)
+  4. **Status aplikacji** — czy Playwright pomyślnie wypełnił formularze
 
-**NIE wysyłaj emaili do żadnych firm, HR-ów ani rekruterów.** Tylko do Mateusza.
+**NIE wysyłaj emaili do żadnych firm, HR-ów ani rekruterów.** Tylko do Mateusza z raportem.
 
-Po udanym wysłaniu każdej aplikacji (przez Playwright) dopisz do `applications/applied-jobs.json`:
+Po udanej aplikacji dopisz do `applications/applied-jobs.json`:
 
 ```json
 {
@@ -138,7 +190,8 @@ Po udanym wysłaniu każdej aplikacji (przez Playwright) dopisz do `applications
   "company": "[Firma]",
   "role": "[Stanowisko]",
   "date": "[YYYY-MM-DD]",
-  "status": "sent"
+  "status": "submitted",
+  "portal": "[nazwa portalu]"
 }
 ```
 
@@ -175,12 +228,13 @@ Czy chcesz żebym zaaplikował do którejś z poniższych?
 ## Ważne zasady
 
 - NIE aplikuj do ofert których URL jest w `applied-jobs.json` — sprawdź PRZED aplikowaniem
-- NIE wymyślaj danych których nie ma w CV
-- Każdy cover letter musi być unikatowy i spersonalizowany
+- Aplikuj WYŁĄCZNIE przez formularz na portalu (Playwright) — nie wysyłaj emaili do HR
+- Każda aplikacja to: zaloguj się Google → wypełnij formularz → submit → zrób screenshot
 - Jeśli sub-agent zwróci pustą listę → pomiń, nie blokuj reszty pipeline
-- **BEZWZGLĘDNY ZAKAZ wysyłania emaili na adresy HR/firm/rekruterów** — tylko Playwright przez portal
-- Email wysyłasz WYŁĄCZNIE do Mateusza (na jego własny adres z user-profile.json), z pełnym raportem
+- **ZAKAZ wysyłania emaili do HR-ów, rekruterów ani firm** — Playwright wypełnia formularze portali
+- Email wysyłasz WYŁĄCZNIE do Mateusza (na `GOOGLE_EMAIL` z `.env`), z raportem statusu aplikacji
 - Jeśli logowanie przez Google nie działa → zapisz plik z opisem błędu i wyślij email do Mateusza z informacją o problemie
 - Email do Mateusza wysyłaj ZAWSZE na końcu — zarówno po sukcesie jak i po błędzie
+- Formularze mogą mieć różne pola — dostosuj się do tego, co portal wymaga (imię, email, telefon, pytania)
 
 $ARGUMENTS

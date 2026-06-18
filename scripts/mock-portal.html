@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>MockPortal — Oferty Pracy IT</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #f0f0f0; margin: 0; padding: 20px; }
+  h1 { color: #1C2333; border-bottom: 3px solid #C9A84C; padding-bottom: 10px; }
+  .job-offer { background: #fff; border-left: 4px solid #C9A84C; border-radius: 6px; padding: 16px 20px; margin-bottom: 14px; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+  .job-offer h2 { margin: 0 0 4px; color: #1C2333; font-size: 17px; }
+  .company { color: #C9A84C; font-weight: bold; font-size: 14px; }
+  .meta { display: flex; gap: 12px; flex-wrap: wrap; font-size: 13px; color: #555; margin: 6px 0; }
+  .tag { background: #e8e8e8; padding: 2px 8px; border-radius: 10px; font-size: 12px; }
+  .tag.remote { background: #d4edda; color: #155724; }
+  .tag.hybrid { background: #fff3cd; color: #856404; }
+  .tag.onsite { background: #f8d7da; color: #721c24; }
+  .salary { font-weight: bold; color: #1C2333; }
+  .desc { font-size: 13px; color: #444; margin-top: 8px; }
+  .skills { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .skill { background: #1C2333; color: #C9A84C; padding: 2px 8px; border-radius: 10px; font-size: 12px; }
+  .english-badge { font-size: 12px; padding: 2px 8px; border-radius: 10px; }
+  .eng-none { background: #d4edda; color: #155724; }
+  .eng-optional { background: #cce5ff; color: #004085; }
+  .eng-b1 { background: #cce5ff; color: #004085; }
+  .eng-b2 { background: #fff3cd; color: #856404; }
+  .eng-c1 { background: #f8d7da; color: #721c24; }
+  .applied-badge { background: #6c757d; color: #fff; padding: 2px 8px; border-radius: 10px; font-size: 11px; }
+</style>
+</head>
+<body>
+<h1>MockPortal IT — Oferty Pracy (Warszawa / Remote)</h1>
+<p style="color:#666;font-size:13px">10 ogłoszeń · Symulator pipeline · Data: 2026-06-18</p>
+
+<!-- JOB 1: Dobry match — Senior Fullstack React+Kotlin, remote, 22-28k, angielski brak -->
+<article class="job-offer"
+  data-url="https://mockportal.pl/job/techcorp-senior-fullstack-001"
+  data-company="TechCorp Polska"
+  data-role="Senior Fullstack Developer (React + Kotlin)"
+  data-salary-min="22000"
+  data-salary-max="28000"
+  data-salary-type="B2B"
+  data-work-mode="remote"
+  data-english="none"
+  data-skills="React,TypeScript,Kotlin,Spring Boot,REST API,PostgreSQL,Docker"
+  data-description="Szukamy doświadczonego seniora do rozbudowy platformy SaaS. Stack: React 18, TypeScript, Kotlin, Spring Boot 3, PostgreSQL. CI/CD, mikroserwisy. Angielski niewymagany — praca w polskim zespole.">
+  <h2>Senior Fullstack Developer (React + Kotlin)</h2>
+  <div class="company">TechCorp Polska</div>
+  <div class="meta">
+    <span class="tag remote">Remote 100%</span>
+    <span class="salary">22 000 – 28 000 PLN B2B</span>
+    <span class="english-badge eng-none">Angielski: niewymagany</span>
+  </div>
+  <div class="skills">
+    <span class="skill">React</span><span class="skill">TypeScript</span>
+    <span class="skill">Kotlin</span><span class="skill">Spring Boot</span>
+    <span class="skill">REST API</span><span class="skill">PostgreSQL</span>
+  </div>
+  <div class="desc">Rozbudowa platformy SaaS. Mikroserwisy Kotlin, frontend React 18. CI/CD. Polski zespół.</div>
+</article>
+
+<!-- JOB 2: Bardzo dobry match — AI/GenAI Senior, remote, 25-35k, angielski optional -->
+<article class="job-offer"
+  data-url="https://mockportal.pl/job/aistartup-genai-senior-002"
+  data-company="AIStartup Sp. z o.o."
+  data-role="Senior AI/GenAI Engineer"
+  data-salary-min="25000"
+  data-salary-max="35000"
+  data-salary-type="B2B"
+  data-work-mode="remote"
+  data-english="optional"
+  data-skills="React,TypeScript,GenAI,LLM,Prompt Engineering,REST API,Python"
+  data-description="Budujemy platformę AI dla enterprise. Szukamy kogoś kto łączy frontend (React/TS) z doświadczeniem w GenAI i LLM. Nagrody i osiągnięcia AI mile widziane. Angielski opcjonalny — dokumentacja EN, team PL.">
+  <h2>Senior AI/GenAI Engineer</h2>
+  <div class="company">AIStartup Sp. z o.o.</div>
+  <div class="meta">
+    <span class="tag remote">Remote 100%</span>
+    <span class="salary">25 000 – 35 000 PLN B2B</span>
+    <span class="english-badge eng-optional">Angielski: opcjonalny</span>
+  </div>
+  <div class="skills">
+    <span class="skill">React</span><span class="skill">TypeScript</span>
+    <span class="skill">GenAI</span><span class="skill">LLM</span>
+    <span class="skill">Prompt Engineering</span>
+  </div>
+  <div class="desc">Platforma AI enterprise. Integracje LLM, GenAI API, React frontend. AI background bardzo mile widziany.</div>
+</article>
+
+<!-- JOB 3: Dobry match — Senior React+TypeScript medtech, remote, 23-27k, angielski brak -->
+<article class="job-offer"
+  data-url="https://mockportal.pl/job/medtech-senior-react-003"
+  data-company="MedTech Solutions"
+  data-role="Senior Fullstack Developer (React + TypeScript)"
+  data-salary-min="23000"
+  data-salary-max="27000"
+  data-salary-type="B2B"
+  data-work-mode="remote"
+  data-english="none"
+  data-skills="React,TypeScript,REST API,SQL,Docker,Kubernetes"
+  data-description="System do zarządzania danymi medycznymi. Stack: React, TypeScript, REST API, PostgreSQL. Doświadczony senior do architektury frontendu i backend integracji. Angielski niewymagany.">
+  <h2>Senior Fullstack Developer (React + TypeScript)</h2>
+  <div class="company">MedTech Solutions</div>
+  <div class="meta">
+    <span class="tag remote">Remote 100%</span>
+    <span class="salary">23 000 – 27 000 PLN B2B</span>
+    <span class="english-badge eng-none">Angielski: niewymagany</span>
+  </div>
+  <div class="skills">
+    <span class="skill">React</span><span class="skill">TypeScript</span>
+    <span class="skill">REST API</span><span class="skill">SQL</span>
+  </div>
+  <div class="desc">System zarządzania danymi medycznymi. React + TypeScript + REST. Senior do architektury.</div>
+</article>
+
+<!-- JOB 4: JUŻ APLIKOWANY — Accenture (URL z applied-jobs.json) -->
+<article class="job-offer" style="opacity:0.5"
+  data-url="https://justjoin.it/job-offer/accenture-frontend-engineer---ai-solutions-ai-data-evergreen-open--warszawa-javascript"
+  data-company="Accenture"
+  data-role="Frontend Engineer – AI Solutions"
+  data-salary-min="18000"
+  data-salary-max="25000"
+  data-salary-type="B2B"
+  data-work-mode="hybrid"
+  data-english="b2"
+  data-skills="React,TypeScript,JavaScript,AI,Azure"
+  data-description="AI Solutions team. React, TypeScript, Azure AI services. B2 English required.">
+  <h2>Frontend Engineer – AI Solutions</h2>
+  <div class="company">Accenture</div>
+  <div class="meta">
+    <span class="tag hybrid">Hybrid Warszawa</span>
+    <span class="salary">18 000 – 25 000 PLN B2B</span>
+    <span class="english-badge eng-b2">Angielski: B2 wymagany</span>
+    <span class="applied-badge">✓ Już aplikowano (2026-06-15)</span>
+  </div>
+  <div class="skills">
+    <span class="skill">React</span><span class="skill">TypeScript</span><span class="skill">Azure</span>
+  </div>
+</article>
+
+<!-- JOB 5: Średni match — Senior React hybrid, 20-22k, B1 ok -->
+<article class="job-offer"
+  data-url="https://mockportal.pl/job/dataco-senior-react-005"
+  data-company="DataCo Analytics"
+  data-role="Senior React Developer"
+  data-salary-min="20000"
+  data-salary-max="22000"
+  data-salary-type="B2B"
+  data-work-mode="hybrid"
+  data-english="b1"
+  data-skills="React,JavaScript,Redux,CSS,REST API"
+  data-description="Dashboard analytics dla klientów enterprise. Szukamy React seniora do rozbudowy UI. B1 angielski wystarczy — daily standups po polsku.">
+  <h2>Senior React Developer</h2>
+  <div class="company">DataCo Analytics</div>
+  <div class="meta">
+    <span class="tag hybrid">Hybrid Warszawa (2 dni/tydzień)</span>
+    <span class="salary">20 000 – 22 000 PLN B2B</span>
+    <span class="english-badge eng-b1">Angielski: B1 wystarczy</span>
+  </div>
+  <div class="skills">
+    <span class="skill">React</span><span class="skill">JavaScript</span>
+    <span class="skill">Redux</span><span class="skill">REST API</span>
+  </div>
+  <div class="desc">Dashboard analytics enterprise. React senior, B1 angielski. Hybrid 2 dni/tydzień.</div>
+</article>
+
+<!-- JOB 6: Słaby match — React+Node onsite, 18-20k, B2 required -->
+<article class="job-offer"
+  data-url="https://mockportal.pl/job/fintech-react-node-006"
+  data-company="FintechFirma"
+  data-role="React + Node.js Developer"
+  data-salary-min="18000"
+  data-salary-max="20000"
+  data-salary-type="B2B"
+  data-work-mode="onsite"
+  data-english="b2"
+  data-skills="React,Node.js,JavaScript,MongoDB,Express"
+  data-description="Fintech startup buduje nową platformę płatności. Stack: React, Node.js, MongoDB. Praca stacjonarna w centrum Warszawy. B2 angielski wymagany (standupy z zespołem UK).">
+  <h2>React + Node.js Developer</h2>
+  <div class="company">FintechFirma</div>
+  <div class="meta">
+    <span class="tag onsite">Stacjonarnie Warszawa</span>
+    <span class="salary">18 000 – 20 000 PLN B2B</span>
+    <span class="english-badge eng-b2">Angielski: B2 wymagany</span>
+  </div>
+  <div class="skills">
+    <span class="skill">React</span><span class="skill">Node.js</span>
+    <span class="skill">MongoDB</span>
+  </div>
+  <div class="desc">Fintech startup. React+Node, MongoDB. Stacjonarnie. B2 angielski.</div>
+</article>
+
+<!-- JOB 7: Bardzo słaby — Java Spring Lead remote, 30-40k, C1 required -->
+<article class="job-offer"
+  data-url="https://mockportal.pl/job/cloud-java-lead-007"
+  data-company="CloudSystems GmbH"
+  data-role="Java Spring Boot Lead Developer"
+  data-salary-min="30000"
+  data-salary-max="40000"
+  data-salary-type="B2B"
+  data-work-mode="remote"
+  data-english="c1"
+  data-skills="Java,Spring Boot,Kubernetes,AWS,Microservices"
+  data-description="International team building cloud infrastructure. C1 English mandatory — all communication in English. Java, Spring Boot, AWS. No Polish required.">
+  <h2>Java Spring Boot Lead Developer</h2>
+  <div class="company">CloudSystems GmbH</div>
+  <div class="meta">
+    <span class="tag remote">Remote 100%</span>
+    <span class="salary">30 000 – 40 000 PLN B2B</span>
+    <span class="english-badge eng-c1">Angielski: C1 wymagany</span>
+  </div>
+  <div class="skills">
+    <span class="skill">Java</span><span class="skill">Spring Boot</span>
+    <span class="skill">Kubernetes</span><span class="skill">AWS</span>
+  </div>
+  <div class="desc">International team. Java, Spring Boot, AWS. C1 English — all communication in English.</div>
+</article>
+
+<!-- JOB 8: Słaby — React dev, za mała kasa, hybrid -->
+<article class="job-offer"
+  data-url="https://mockportal.pl/job/eduapp-react-dev-008"
+  data-company="EduApp"
+  data-role="React Developer"
+  data-salary-min="15000"
+  data-salary-max="18000"
+  data-salary-type="UoP"
+  data-work-mode="hybrid"
+  data-english="none"
+  data-skills="React,JavaScript,CSS,HTML"
+  data-description="Platforma edukacyjna dla szkół. Junior/Mid React developer do rozbudowy UI. Angielski niewymagany. UoP lub B2B.">
+  <h2>React Developer</h2>
+  <div class="company">EduApp</div>
+  <div class="meta">
+    <span class="tag hybrid">Hybrid Warszawa</span>
+    <span class="salary">15 000 – 18 000 PLN UoP</span>
+    <span class="english-badge eng-none">Angielski: niewymagany</span>
+  </div>
+  <div class="skills">
+    <span class="skill">React</span><span class="skill">JavaScript</span><span class="skill">CSS</span>
+  </div>
+  <div class="desc">Platforma edukacyjna. React Junior/Mid. Hybryda. Wynagrodzenie poniżej oczekiwań.</div>
+</article>
+
+<!-- JOB 9: Średni — AI Automation + React, hybrid, 21-26k, angielski optional -->
+<article class="job-offer"
+  data-url="https://mockportal.pl/job/agency-ai-automation-009"
+  data-company="AgencyAI"
+  data-role="Fullstack Developer + AI Automation"
+  data-salary-min="21000"
+  data-salary-max="26000"
+  data-salary-type="B2B"
+  data-work-mode="hybrid"
+  data-english="optional"
+  data-skills="React,TypeScript,AI,Node.js,REST API,ChatGPT,Automatyzacje"
+  data-description="Agencja budująca AI automatyzacje dla klientów. Stack: React, TypeScript, Node, integracje AI (ChatGPT API). Angielski opcjonalny. Ciekawa praca z AI tools i workflow.">
+  <h2>Fullstack Developer + AI Automation</h2>
+  <div class="company">AgencyAI</div>
+  <div class="meta">
+    <span class="tag hybrid">Hybrid Warszawa</span>
+    <span class="salary">21 000 – 26 000 PLN B2B</span>
+    <span class="english-badge eng-optional">Angielski: opcjonalny</span>
+  </div>
+  <div class="skills">
+    <span class="skill">React</span><span class="skill">TypeScript</span>
+    <span class="skill">AI</span><span class="skill">Node.js</span><span class="skill">ChatGPT API</span>
+  </div>
+  <div class="desc">AI automatyzacje dla klientów. React+TS+Node, integracje ChatGPT. Angielski opcjonalny.</div>
+</article>
+
+<!-- JOB 10: Mid/Senior Kotlin — dobry backend match, remote, 20-24k, B2 required -->
+<article class="job-offer"
+  data-url="https://mockportal.pl/job/enterprise-kotlin-010"
+  data-company="EnterpriseSoft"
+  data-role="Mid/Senior Kotlin Backend Developer"
+  data-salary-min="20000"
+  data-salary-max="24000"
+  data-salary-type="B2B"
+  data-work-mode="remote"
+  data-english="b2"
+  data-skills="Kotlin,Spring Boot,REST API,SQL,Docker,RabbitMQ"
+  data-description="System finansowy dla banku. Kotlin, Spring Boot, RabbitMQ, PostgreSQL. B2 angielski wymagany do komunikacji z zagranicznym klientem. Remote.">
+  <h2>Mid/Senior Kotlin Backend Developer</h2>
+  <div class="company">EnterpriseSoft</div>
+  <div class="meta">
+    <span class="tag remote">Remote 100%</span>
+    <span class="salary">20 000 – 24 000 PLN B2B</span>
+    <span class="english-badge eng-b2">Angielski: B2 wymagany</span>
+  </div>
+  <div class="skills">
+    <span class="skill">Kotlin</span><span class="skill">Spring Boot</span>
+    <span class="skill">REST API</span><span class="skill">SQL</span><span class="skill">RabbitMQ</span>
+  </div>
+  <div class="desc">System finansowy. Kotlin, Spring Boot, RabbitMQ. B2 angielski (klient zagraniczny). Remote.</div>
+</article>
+
+</body>
+</html>
