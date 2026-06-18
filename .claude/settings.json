@@ -21,5 +21,31 @@
         ]
       }
     ]
+  },
+  "permissions": {
+    "allow": [
+      "Bash(git status *)",
+      "Bash(git log *)",
+      "Bash(git diff *)",
+      "Bash(git branch *)",
+      "Bash(git show *)",
+      "Bash(git rev-parse *)",
+      "Bash(git remote *)",
+      "Bash(ls *)",
+      "Bash(find *)",
+      "Bash(grep *)",
+      "Bash(cat *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(npm install)",
+      "Bash(npm run build)",
+      "Bash(npm run dev)",
+      "Bash(npm run lint)",
+      "Bash(npm run test)",
+      "Bash(npm audit)",
+      "Bash(file *)",
+      "Bash(wc *)",
+      "Bash(node scripts/*)"
+    ]
   }
 }
