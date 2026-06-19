@@ -240,13 +240,13 @@ Uzasadnienie: [np. "Silne dopasowanie (8/9 skillów must-have), ogłoszenie sprz
 - [aplikacje wymagające ręcznego dokończenia] 🖱️ Otwórz [URL] i wypełnij ręcznie — dane w pliku [ścieżka]
 ```
 
-## Ważne zasady
-
-- NIE wymyślaj danych których nie ma w CV — nie kłam o doświadczeniu
-- NIE używaj szablonowych fraz ("Jestem zmotywowanym kandydatem", "Dołączam CV w załączeniu")
-- KAŻDY cover letter musi być unikatowy i odnosić się do konkretnej firmy/roli
-- Jeśli oferta jest po angielsku → pisz cover letter po angielsku
-- Jeśli URL jest niedostępny → napisz o tym i przejdź do następnego
-- MAX 3 aplikacje per wywołanie — nie przetwarzaj więcej nawet jeśli użytkownik poda więcej URLi
+## Zasady — czego NIE robić
+- NIE loguj przez Google OAuth z hasłem — używaj TYLKO sesji z `.google-session.json`
+- NIE wymyślaj danych (telefon, adres, lata doświadczenia) których nie ma w CV
+- NIE akceptuj checkboxów marketing/T&C/powiadomienia — tylko pola aplikacji
+- NIE wysyłaj emaila do HR bez "tak" od użytkownika
+- NIE zapisuj status "submitted" jeśli nie widzisz potwierdzenia na ekranie
+- NIE przetwarzaj więcej niż 3 URL-e per wywołanie
+- KAŻDY cover letter personalizuj pod konkretną firmę/rolę
 
 $ARGUMENTS

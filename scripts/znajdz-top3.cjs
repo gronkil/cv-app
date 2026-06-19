@@ -88,13 +88,21 @@ function whyGoodMatch(job) {
     process.exit(1);
   }
 
-  const browser = await chromium.launch({ headless: true });
+  const browser = await chromium.launch({
+    headless: true,
+    args: ['--disable-blink-features=AutomationControlled', '--no-sandbox']
+  });
   const context = await browser.newContext({
     storageState: SESSION_FILE,
-    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120 Safari/537.36',
-    viewport: { width: 1280, height: 900 }
+    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    viewport: { width: 1366, height: 768 },
+    ignoreHTTPSErrors: true,
+    extraHTTPHeaders: { 'Accept-Language': 'pl-PL,pl;q=0.9,en;q=0.8' }
   });
   const page = await context.newPage();
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, 'webdriver', { get: () => undefined });
+  });
 
   // ─── Sprawdź sesję JustJoin ─────────────────────────────────────────────────
   console.log('Sprawdzam sesję JustJoin...');
@@ -117,51 +125,79 @@ function whyGoodMatch(job) {
     console.log(`⚠️  Nie udało się sprawdzić sesji: ${e.message.slice(0,50)}\n`);
   }
 
-  // Portale do przeszukania — wszystkie 9
+  // Portale — potwierdzone działające (test 2026-06-18)
   const portals = [
-    // 1. JustJoin — zalogowany (sesja)
+    // 1. JustJoin ✅
     { url: 'https://justjoin.it/?tab=with-salary&orderBy=date&keyword=react+typescript+senior', label: 'JustJoin (react/ts)', type: 'justjoin' },
     { url: 'https://justjoin.it/?tab=with-salary&orderBy=date&keyword=kotlin+spring+senior',   label: 'JustJoin (kotlin)',   type: 'justjoin' },
     { url: 'https://justjoin.it/?tab=with-salary&orderBy=date&keyword=fullstack+ai+senior',    label: 'JustJoin (AI)',       type: 'justjoin' },
-    // 2. TheProtocol.it
-    { url: 'https://theprotocol.it/praca/react-typescript;t?sort=publishedAt',   label: 'TheProtocol (react)', type: 'theprotocol' },
-    { url: 'https://theprotocol.it/praca/kotlin-spring-boot;t?sort=publishedAt', label: 'TheProtocol (kotlin)', type: 'theprotocol' },
-    // 3. NoFluffJobs
+    // 2. NoFluffJobs ✅
     { url: 'https://nofluffjobs.com/pl/jobs/senior?criteria=requirement%3Areact%20city%3Awarszawa,remote',  label: 'NoFluffJobs (react)',  type: 'nofluff' },
     { url: 'https://nofluffjobs.com/pl/jobs/senior?criteria=requirement%3Akotlin%20city%3Awarszawa,remote', label: 'NoFluffJobs (kotlin)', type: 'nofluff' },
-    // 4. Pracuj.pl
+    // 3. Pracuj.pl ✅ (119 ofert)
     { url: 'https://it.pracuj.pl/praca/senior%20fullstack%20developer;kw?rd=30&sc=0', label: 'Pracuj.pl (fullstack)', type: 'pracuj' },
     { url: 'https://it.pracuj.pl/praca/senior%20react%20developer;kw?rd=30&sc=0',     label: 'Pracuj.pl (react)',    type: 'pracuj' },
-    // 5. Bulldogjob
+    // 4. Bulldogjob ✅ (94 ofert)
     { url: 'https://bulldogjob.pl/companies/jobs?role=fullstack&exp=senior&remote=1', label: 'Bulldogjob (fullstack)', type: 'bulldogjob' },
-    // 6. Solid.jobs
-    { url: 'https://solid.jobs/offers/it?q=react+senior&location=remote', label: 'Solid.jobs (react)', type: 'solid' },
-    // 7. RocketJobs
-    { url: 'https://rocketjobs.pl/oferty-pracy?query=senior+react&location=remote', label: 'RocketJobs (react)', type: 'rocketjobs' },
-    // 8. 4programmers.net
-    { url: 'https://4programmers.net/Praca?q=senior+react&remote=1', label: '4programmers (react)', type: '4programmers' },
-    // 9. LinkedIn — próbujemy ale może blokować
+    // 5. Solid.jobs ✅ (selektor /offer/)
+    { url: 'https://solid.jobs/offers/it?q=react+senior&location=remote',  label: 'Solid.jobs (react)',  type: 'solid' },
+    { url: 'https://solid.jobs/offers/it?q=kotlin+senior&location=remote', label: 'Solid.jobs (kotlin)', type: 'solid' },
+    // 6. RocketJobs ✅ (73 ofert)
+    { url: 'https://rocketjobs.pl/oferty-pracy?query=senior+react&location=remote',  label: 'RocketJobs (react)',  type: 'rocketjobs' },
+    { url: 'https://rocketjobs.pl/oferty-pracy?query=senior+kotlin&location=remote', label: 'RocketJobs (kotlin)', type: 'rocketjobs' },
+    // 7. LinkedIn ✅ (29 ofert)
     { url: 'https://www.linkedin.com/jobs/search/?keywords=senior%20fullstack%20developer%20react&location=Warszawa', label: 'LinkedIn (fullstack)', type: 'linkedin' },
+    { url: 'https://www.linkedin.com/jobs/search/?keywords=senior%20kotlin%20developer&location=Warszawa',            label: 'LinkedIn (kotlin)',    type: 'linkedin' },
+    // 8. Indeed.pl ✅ (16 ofert)
+    { url: 'https://pl.indeed.com/jobs?q=senior+react+developer&l=Polska', label: 'Indeed (react)',    type: 'indeed' },
+    { url: 'https://pl.indeed.com/jobs?q=senior+kotlin+developer&l=Polska', label: 'Indeed (kotlin)',  type: 'indeed' },
+    // 9. Inhire.io ✅ (selektor /praca/)
+    { url: 'https://inhire.io/job-offers?query=react+senior&workMode=REMOTE',  label: 'Inhire (react)',  type: 'inhire' },
+    { url: 'https://inhire.io/job-offers?query=kotlin+senior&workMode=REMOTE', label: 'Inhire (kotlin)', type: 'inhire' },
+    // 10. Crossweb.pl ✅ (wymaga networkidle)
+    { url: 'https://crossweb.pl/job/oferty-pracy/?q=react+senior',  label: 'Crossweb (react)',  type: 'crossweb', waitIdle: true },
+    { url: 'https://crossweb.pl/job/oferty-pracy/?q=kotlin+senior', label: 'Crossweb (kotlin)', type: 'crossweb', waitIdle: true },
+    // 11. Remotive.com ✅ (11 ofert, remote-only, EN)
+    { url: 'https://remotive.com/remote-jobs/software-development?search=react+senior',  label: 'Remotive (react)',  type: 'remotive' },
+    { url: 'https://remotive.com/remote-jobs/software-development?search=kotlin+senior', label: 'Remotive (kotlin)', type: 'remotive' },
+    // 12. 4programmers.net ✅ (mało ofert, ale działa)
+    { url: 'https://4programmers.net/Job?q=react+typescript&remote=1',  label: '4prog (react)',     type: '4programmers' },
+    { url: 'https://4programmers.net/Job?q=fullstack+senior&remote=1',  label: '4prog (fullstack)', type: '4programmers' },
+    // 13. TheProtocol.it ✅ (działa z anti-detection headers)
+    { url: 'https://theprotocol.it/praca/react-typescript;t?sort=publishedAt',   label: 'TheProtocol (react)',  type: 'theprotocol' },
+    { url: 'https://theprotocol.it/praca/kotlin-spring-boot;t?sort=publishedAt', label: 'TheProtocol (kotlin)', type: 'theprotocol' },
+    // 14. Glassdoor ✅ (30 ofert)
+    { url: 'https://www.glassdoor.com/Job/poland-senior-react-developer-jobs-SRCH_IL.0,6_IN193_KO7,29.htm', label: 'Glassdoor (react)',  type: 'glassdoor' },
+    { url: 'https://www.glassdoor.com/Job/poland-senior-fullstack-jobs-SRCH_IL.0,6_IN193_KO7,22.htm',       label: 'Glassdoor (full)',   type: 'glassdoor' },
+    // 15. WeWorkRemotely ✅ (44 ofert, EN, remote-only)
+    { url: 'https://weworkremotely.com/categories/remote-programming-jobs', label: 'WeWorkRemotely', type: 'weworkremotely' },
   ];
 
-  // Selektory per portal — pary [selektor_linku, prefiks_url]
+  // Selektory per portal — potwierdzone testem 2026-06-18
   const PORTAL_SELECTORS = {
-    theprotocol: { sel: 'a[href*="/szczegoly/praca/"], a[href*=",oferta,"]', base: '' },
-    nofluff:     { sel: 'a[href*="/pl/job/"]',              base: 'https://nofluffjobs.com' },
-    pracuj:      { sel: 'a[href*="pracuj.pl/praca/"]',      base: '' },
-    bulldogjob:  { sel: 'a[href*="/companies/jobs/"]',      base: 'https://bulldogjob.pl' },
-    solid:       { sel: 'a[href*="/offers/"]',              base: 'https://solid.jobs' },
-    rocketjobs:  { sel: 'a[href*="/oferty-pracy/"][href*="-"]', base: 'https://rocketjobs.pl' },
-    '4programmers': { sel: 'a[href*="/Praca/"][href*="-"]', base: 'https://4programmers.net' },
-    linkedin:    { sel: 'a[href*="/jobs/view/"]',           base: '' },
+    nofluff:       { sel: 'a[href*="/pl/job/"]',                                       base: 'https://nofluffjobs.com' },
+    pracuj:        { sel: 'a[href*="pracuj.pl/praca/"]',                               base: '' },
+    bulldogjob:    { sel: 'a[href*="/companies/jobs/"]',                               base: 'https://bulldogjob.pl' },
+    solid:         { sel: 'a[href*="/offer/"]',                                        base: 'https://solid.jobs' },
+    rocketjobs:    { sel: 'a[href*="/oferty-pracy/"][href*="-"]',                      base: 'https://rocketjobs.pl' },
+    linkedin:      { sel: 'a[href*="/jobs/view/"]',                                    base: '' },
+    indeed:        { sel: 'a[class*="jcs-JobTitle"], h2.jobTitle a, a[data-jk]',      base: 'https://pl.indeed.com' },
+    inhire:        { sel: 'a[href*="/praca/"]',                                        base: 'https://inhire.io' },
+    crossweb:       { sel: 'a[href*="/job/oferty-pracy/"][href*="-"]',                  base: 'https://crossweb.pl' },
+    remotive:       { sel: 'a[href*="/remote-jobs/software-development/"][href*="-"]', base: '' },
+    '4programmers': { sel: 'a[href*="/Job/"][href*="-"]',                              base: 'https://4programmers.net' },
+    theprotocol:    { sel: 'a[href*="/szczegoly/"]',                                   base: 'https://theprotocol.it' },
+    glassdoor:      { sel: 'a[href*="/job-listing/"]',                                 base: 'https://www.glassdoor.com' },
+    weworkremotely: { sel: 'a[href*="/remote-jobs/"]:not([href*="?"])',                 base: 'https://weworkremotely.com' },
   };
 
   let allJobs = [];
   for (const portal of portals) {
     try {
       process.stdout.write(`  ${portal.label}... `);
-      await page.goto(portal.url, { waitUntil: 'domcontentloaded', timeout: 20000 });
-      await page.waitForTimeout(2000);
+      const waitUntil = portal.waitIdle ? 'networkidle' : 'domcontentloaded';
+      await page.goto(portal.url, { waitUntil, timeout: 25000 });
+      await page.waitForTimeout(portal.waitIdle ? 3000 : 2000);
 
       let jobs = [];
       if (portal.type === 'justjoin') {
@@ -246,7 +282,7 @@ function whyGoodMatch(job) {
   const modeLabel = { remote: 'remote', hybrid: 'hybrid', onsite: 'stacj', unknown: '?' };
 
   let txt = `OFERTY PRACY — ${TODAY}\n`;
-  txt += `Portale: JustJoin, TheProtocol, NoFluffJobs, Pracuj, Bulldogjob, Solid, RocketJobs, 4programmers, LinkedIn\n`;
+  txt += `Portale: JustJoin, NoFluffJobs, Pracuj.pl, Bulldogjob, Solid.jobs, RocketJobs, LinkedIn, Indeed.pl, Inhire.io, Crossweb, Remotive, 4programmers, TheProtocol, Glassdoor, WeWorkRemotely\n`;
   txt += `Znaleziono: ${allJobs.length} | Po ocenie: ${finalScored.length}\n`;
   txt += `${'─'.repeat(80)}\n\n`;
 
@@ -290,6 +326,24 @@ function whyGoodMatch(job) {
     <tr><td style="padding:2px 0;font-weight:bold;color:#555;">Angielski</td><td>${engStr}</td></tr>
     <tr><td style="padding:2px 0;font-weight:bold;color:#555;">Skills</td><td>${j.skills.slice(0,6).join(', ')}</td></tr>
   </table>
+  <div style="background:#e3f2fd;border:1px solid #90caf9;border-radius:4px;padding:12px 16px;margin-bottom:10px;font-size:13px;">
+    <div style="color:#1565c0;font-weight:bold;margin-bottom:4px;">💬 DM na LinkedIn (skopiuj i wyślij):</div>
+    <div style="color:#555;font-size:11.5px;margin-bottom:8px;line-height:1.5;">
+      🔍 Jak znaleźć komu wysłać: LinkedIn → wpisz <b>"${j.company} rekruter"</b> lub otwórz stronę firmy
+      → zakładka <b>Pracownicy</b> → filtruj: <i>HR / Talent / Recruiter</i> → wyślij DM do pierwszej osoby.
+      Mała firma (&lt;20 osób)? → wyślij do CTO lub CEO.
+    </div>
+    <div style="background:#fff;border:1px solid #ccc;border-radius:4px;padding:10px 14px;font-family:monospace;font-size:12.5px;color:#222;line-height:1.6;white-space:pre-wrap;">Dzień dobry,
+
+natrafiłem na ofertę ${j.role} w ${j.company || 'Waszej firmie'} i myślę że dobrze pasuję do tego czego szukacie.
+
+Mam 7 lat w fullstack (React, TypeScript, Kotlin, GenAI). W PZU dostarczyłem platformę AI dla 1000 pracowników w 11 dni — za to dostałem nagrodę Rzeczpospolitej Cyfrowej 2024.
+
+Czy możemy porozmawiać?
+
+Mateusz Markowski
+CV: https://cv-app-ta9g.vercel.app/</div>
+  </div>
   <div style="background:#e8f5e9;border-radius:4px;padding:10px 14px;margin-bottom:10px;font-size:13px;">
     <b style="color:#2e7d32;">Dlaczego duże szanse:</b>
     <ul style="margin:4px 0 0;padding-left:18px;color:#333;">
@@ -299,6 +353,25 @@ function whyGoodMatch(job) {
   <a href="${j.url}" style="display:inline-block;background:#1C2333;color:#C9A84C;padding:8px 18px;border-radius:4px;text-decoration:none;font-size:13px;font-weight:bold;">→ Otwórz ofertę i aplikuj</a>
 </div>`;
   }).join('');
+
+  const statusBlock = `
+<div style="background:#1C2333;color:#fff;border-radius:6px;padding:18px 22px;margin-bottom:20px;">
+  <div style="font-size:15px;font-weight:bold;color:#C9A84C;margin-bottom:12px;">📋 PLAN DZIAŁANIA — ${TODAY}</div>
+  <table style="width:100%;font-size:13px;border-collapse:collapse;">
+    ${top3.map((j,i) => `
+    <tr style="border-bottom:1px solid #2d3748;">
+      <td style="padding:8px 0;color:#C9A84C;font-weight:bold;width:24px;">#${i+1}</td>
+      <td style="padding:8px 8px;color:#fff;width:180px;">${j.company}<br><span style="color:#aaa;font-size:11px;">${j.role.slice(0,30)}</span></td>
+      <td style="padding:8px 4px;">
+        <a href="${j.url}" style="color:#C9A84C;text-decoration:none;">📝 Aplikuj formularz</a>
+      </td>
+      <td style="padding:8px 4px;color:#aaa;font-size:12px;">
+        💬 LinkedIn → wpisz <b style="color:#fff;">"${j.company} rekruter"</b><br>
+        lub firma → Pracownicy → HR/Talent → wyślij DM (szablon poniżej)
+      </td>
+    </tr>`).join('')}
+  </table>
+</div>`;
 
   const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>
 body{font-family:Arial,sans-serif;background:#f5f5f5;margin:0;padding:20px;}
@@ -314,6 +387,7 @@ h2{color:#1C2333;border-bottom:2px solid #C9A84C;padding-bottom:6px;margin-top:0
   <p>Znaleziono ${allJobs.length} ofert · Po ocenie: ${finalScored.length} · Poniżej 3 najlepiej dopasowane</p>
 </div>
 <div class="b">
+${statusBlock}
 <h2>✅ 3 Oferty gdzie masz największe szanse</h2>
 ${jobCards}
 <div style="background:#fff3cd;border:1px solid #ffc107;border-radius:4px;padding:12px 16px;font-size:13px;color:#856404;margin-top:8px;">

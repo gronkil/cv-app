@@ -82,6 +82,69 @@
       "status": "cover_letter_ready",
       "hr_email": "anna.sudol@youriteams.com",
       "notes": "Cover letter gotowy. Email nie wysłany — SMTP zablokowany w środowisku CI. Silne dopasowanie: MUI v9 aktywnie używane."
+    },
+    {
+      "url": "https://theprotocol.it/praca/senior-fullstack-developer-warszawa,oferta,4d2d0000-7494-aeb0-681e-08dea9c8e2d3",
+      "company": "nieznana",
+      "role": "Senior Fullstack Developer",
+      "date": "2026-06-18",
+      "status": "playwright_blocked",
+      "portal": "theprotocol.it",
+      "score": 93,
+      "notes": "Top 1 (93/100). Playwright zablokowany — wymaga ręcznej aplikacji."
+    },
+    {
+      "url": "https://justjoin.it/job-offer/square-one-ai-senior-developer-warszawa-ai",
+      "company": "Square One",
+      "role": "AI Senior Developer",
+      "date": "2026-06-18",
+      "status": "playwright_blocked",
+      "portal": "justjoin.it",
+      "score": 88,
+      "notes": "Top 2 (88/100). Playwright zablokowany — wymaga ręcznej aplikacji."
+    },
+    {
+      "url": "https://justjoin.it/job-offer/bluebinary-io-senior-fullstack-developer-warszawa-javascript",
+      "company": "BlueBinary.io",
+      "role": "Senior Fullstack Developer",
+      "date": "2026-06-18",
+      "status": "playwright_blocked",
+      "portal": "justjoin.it",
+      "score": 82,
+      "notes": "Top 3 (82/100). Playwright zablokowany — wymaga ręcznej aplikacji."
+    },
+    {
+      "url": "https://justjoin.it/job-offer/devsdata-llc-senior-full-stack-developer-java-react-100-remote--warszawa-java",
+      "company": "DevsData LLC",
+      "role": "Senior Full Stack Developer (Java & React; 100% remote)",
+      "date": "2026-06-18",
+      "status": "playwright_blocked",
+      "action": "playwright_form",
+      "portal": "justjoin.it",
+      "score": 88,
+      "notes": "Top 1 (88/100). Brak emaila HR. Browser MCP niedostępny — cover letter zapisany: 2026-06-18_DevsData_coverLetter.txt. Uwaga: wymaga excellent English."
+    },
+    {
+      "url": "https://justjoin.it/job-offer/dreryk-senior-fullstack-developer-f-m---java-react-krakow-java",
+      "company": "drEryk",
+      "role": "Senior Fullstack Developer (F/M) - Java + React",
+      "date": "2026-06-18",
+      "status": "playwright_blocked",
+      "action": "playwright_form",
+      "portal": "justjoin.it",
+      "score": 83,
+      "notes": "Top 2 (83/100). Brak emaila HR. Browser MCP niedostępny — cover letter zapisany: 2026-06-18_drEryk_coverLetter.txt."
+    },
+    {
+      "url": "https://pl.indeed.com/rc/clk?jk=378e3620b1056c06&bb=TMt8aecwhi3wOcVFOkVSJbmwzamiNx-h-cRAAu-I-573U940PYP4YHH5B5JuTIBQMXNlqhpVl_-2U9E6I5h9s1lnWxwAyHArEhWK1gFZ92XkkRLvna9H6kp5meepAwoE&xkcb=SoC_67M3it8ej5T7z50MbzkdCdPP&fccid=dd616958bd9ddc12&vjs=3",
+      "company": "Codest Ltd.",
+      "role": "Senior React Team Lead",
+      "date": "2026-06-18",
+      "status": "playwright_blocked",
+      "action": "playwright_form",
+      "portal": "indeed.pl",
+      "score": 48,
+      "notes": "Top 3 (48/100). Brak emaila HR. Browser MCP niedostępny — cover letter zapisany: 2026-06-18_Codest_coverLetter.txt."
     }
   ]
 }
