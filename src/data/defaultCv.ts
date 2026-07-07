@@ -4,7 +4,7 @@ export const cvData: CvData = {
   personal: {
     name: 'Mateusz Markowski',
     title: 'Fullstack Developer · AI · PZU',
-    email: 'kozlowski.mateusz.praca@gmail.com',
+    email: 'markowski.mateusz.praca@gmail.com',
     phone: '',
     location: 'Warszawa',
     linkedin: 'https://www.linkedin.com/in/mateusz-kozłowski-2b576114b',
