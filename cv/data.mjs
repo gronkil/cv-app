@@ -79,30 +79,24 @@ export const pl = {
   ],
   aiProjects: [
     {
-      name: 'Produkcyjny system wieloagentowy — 11 subagentów',
-      tech: '[SYSTEM_11_SUBAGENTOW — uzupełnić stack]',
+      name: 'Echo-word — agentowy orkiestrator + wyspecjalizowane subagenty',
+      tech: 'Kotlin · LLM (Claude / GPT / model lokalny) · REST API · web scraping · RAG',
       bullets: [
-        '[SYSTEM_11_SUBAGENTOW — UZUPEŁNIĆ: produkcyjny multi-agent system z 11 wyspecjalizowanymi subagentami; orkiestrator koordynujący subagentów i dzielący odpowiedzialności]',
-        '[SYSTEM_11_SUBAGENTOW — UZUPEŁNIĆ: zastosowanie i efekt biznesowy, skala, stack (np. Kotlin/Spring, MCP, LLM)]',
+        'Reużywalny orkiestrator (multi-agent system) składający wyspecjalizowane subagenty pod konkretny cel: jedne przeszukują strony, inne zbierają dane przez API, kolejne uczą się na zebranych danych (RAG / embeddingi) — wspólna baza, różne role',
+        'Działające flow end-to-end zbudowane na tym samym wzorcu w różnych domenach: agentowe wyszukiwanie i selekcja ofert pracy oraz ofert samochodów',
+        'Nacisk na kompletny, powtarzalny agentic workflow i LLM orchestration — dekompozycja zadań, routing, agregacja wyników (wzorzec zbliżony do ReAct), nie na liczbę agentów',
       ],
+      url: 'https://github.com/gronkil/Echo-word',
     },
     {
-      name: 'Echo-word — architektura multi-agent',
-      tech: 'Kotlin',
-      bullets: [
-        'Własny orkiestrator (multi-agent system) delegujący zadania do wyspecjalizowanych subagentów',
-        'Koordynacja agentów i dekompozycja odpowiedzialności — routing zadań i agregacja wyników (wzorzec zbliżony do ReAct)',
-        'Dowód praktycznego projektowania agentic workflows i LLM orchestration',
-      ],
-    },
-    {
-      name: 'AI Agent — GitHub + JIRA + LLM',
+      name: 'AI Agent — Jira → automatyczny PR',
       tech: 'Kotlin · Spring WebFlux · Llama 3 (Ollama) · GitHub API · JIRA API',
       bullets: [
-        'Agent integrujący GitHub i JIRA z lokalnym modelem LLM (Llama 3 via Ollama)',
+        'Agent pobiera zadania z Jiry, analizuje kontekst repozytorium i przygotowuje gotowy PR z pomocą lokalnego LLM (Llama 3 via Ollama)',
         'Automatyczne pobieranie PR-ów i tasków, budowa promptu i generowanie raportu ryzyka',
         'Architektura reactive (application / domain / infrastructure)',
       ],
+      url: 'https://github.com/gronkil/agent',
     },
   ],
   experience: [
@@ -217,30 +211,24 @@ export const en = {
   ],
   aiProjects: [
     {
-      name: 'Production multi-agent system — 11 subagents',
-      tech: '[SYSTEM_11_SUBAGENTOW — fill in stack]',
+      name: 'Echo-word — agent orchestrator + specialized subagents',
+      tech: 'Kotlin · LLM (Claude / GPT / local model) · REST API · web scraping · RAG',
       bullets: [
-        '[SYSTEM_11_SUBAGENTOW — FILL IN: production multi-agent system with 11 specialized subagents; orchestrator coordinating subagents and splitting responsibilities]',
-        '[SYSTEM_11_SUBAGENTOW — FILL IN: use case and business impact, scale, stack (e.g. Kotlin/Spring, MCP, LLM)]',
+        'Reusable orchestrator (multi-agent system) that composes specialized subagents for a given goal: some crawl web pages, others collect data via APIs, others learn from the collected data (RAG / embeddings) — shared base, different roles',
+        'Working end-to-end flows built on the same pattern across domains: agentic job-offer discovery and selection, and car-listing search',
+        'Focused on a complete, repeatable agentic workflow and LLM orchestration — task decomposition, routing, result aggregation (ReAct-like pattern) — not on the number of agents',
       ],
+      url: 'https://github.com/gronkil/Echo-word',
     },
     {
-      name: 'Echo-word — multi-agent architecture',
-      tech: 'Kotlin',
-      bullets: [
-        'Custom orchestrator (multi-agent system) delegating tasks to specialized subagents',
-        'Agent coordination and responsibility decomposition — task routing and result aggregation (ReAct-like pattern)',
-        'Evidence of hands-on agentic workflows and LLM orchestration design',
-      ],
-    },
-    {
-      name: 'AI Agent — GitHub + JIRA + LLM',
+      name: 'AI Agent — Jira → automated PR',
       tech: 'Kotlin · Spring WebFlux · Llama 3 (Ollama) · GitHub API · JIRA API',
       bullets: [
-        'Agent integrating GitHub and JIRA with a local LLM (Llama 3 via Ollama)',
+        'Agent pulls tasks from Jira, analyzes repository context and prepares a ready PR using a local LLM (Llama 3 via Ollama)',
         'Automatically fetches PRs and tasks, builds a prompt and generates a risk report',
         'Reactive architecture (application / domain / infrastructure)',
       ],
+      url: 'https://github.com/gronkil/agent',
     },
   ],
   experience: [

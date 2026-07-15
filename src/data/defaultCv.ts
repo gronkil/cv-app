@@ -99,31 +99,22 @@ export const cvData: CvData = {
   interests: ['Generatywna AI', 'Systemy multi-agent', 'Gry planszowe'],
   projects: [
     {
-      id: 'p0',
-      name: 'Produkcyjny system wieloagentowy — 11 subagentów',
-      tech: '[SYSTEM_11_SUBAGENTOW — uzupełnić stack]',
-      description: [
-        '[SYSTEM_11_SUBAGENTOW — UZUPEŁNIĆ: produkcyjny multi-agent system z 11 wyspecjalizowanymi subagentami; orkiestrator koordynujący subagentów i dzielący odpowiedzialności]',
-        '[SYSTEM_11_SUBAGENTOW — UZUPEŁNIĆ: zastosowanie i efekt biznesowy, skala, stack (np. Kotlin/Spring, MCP, LLM)]',
-      ],
-    },
-    {
       id: 'p2',
-      name: 'Echo-word — architektura multi-agent',
-      tech: 'Kotlin',
+      name: 'Echo-word — agentowy orkiestrator + wyspecjalizowane subagenty',
+      tech: 'Kotlin · LLM (Claude / GPT / model lokalny) · REST API · web scraping · RAG',
       description: [
-        'Własny orkiestrator (multi-agent system) delegujący zadania do wyspecjalizowanych subagentów',
-        'Koordynacja agentów i dekompozycja odpowiedzialności — routing zadań i agregacja wyników (wzorzec zbliżony do ReAct)',
-        'Dowód praktycznego projektowania agentic workflows i LLM orchestration',
+        'Reużywalny orkiestrator (multi-agent system) składający wyspecjalizowane subagenty pod konkretny cel: jedne przeszukują strony, inne zbierają dane przez API, kolejne uczą się na zebranych danych (RAG / embeddingi) — wspólna baza, różne role',
+        'Działające flow end-to-end zbudowane na tym samym wzorcu w różnych domenach: agentowe wyszukiwanie i selekcja ofert pracy oraz ofert samochodów',
+        'Nacisk na kompletny, powtarzalny agentic workflow i LLM orchestration — dekompozycja zadań, routing, agregacja wyników (wzorzec zbliżony do ReAct), nie na liczbę agentów',
       ],
       url: 'https://github.com/gronkil/Echo-word',
     },
     {
       id: 'p1',
-      name: 'AI Agent — GitHub + JIRA + LLM',
+      name: 'AI Agent — Jira → automatyczny PR',
       tech: 'Kotlin · Spring WebFlux · Llama 3 (Ollama) · GitHub API · JIRA API',
       description: [
-        'Agent integrujący GitHub i JIRA z lokalnym modelem LLM (Llama 3 via Ollama)',
+        'Agent pobiera zadania z Jiry, analizuje kontekst repozytorium i przygotowuje gotowy PR z pomocą lokalnego LLM (Llama 3 via Ollama)',
         'Automatyczne pobieranie PR-ów i tasków, budowa promptu i generowanie raportu ryzyka',
         'Architektura reactive (application / domain / infrastructure)',
       ],

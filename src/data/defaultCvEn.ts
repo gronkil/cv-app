@@ -99,31 +99,22 @@ export const cvDataEn: CvData = {
   interests: ['Generative AI', 'Multi-agent systems', 'Board Games'],
   projects: [
     {
-      id: 'p0',
-      name: 'Production multi-agent system — 11 subagents',
-      tech: '[SYSTEM_11_SUBAGENTOW — fill in stack]',
-      description: [
-        '[SYSTEM_11_SUBAGENTOW — FILL IN: production multi-agent system with 11 specialized subagents; orchestrator coordinating subagents and splitting responsibilities]',
-        '[SYSTEM_11_SUBAGENTOW — FILL IN: use case and business impact, scale, stack (e.g. Kotlin/Spring, MCP, LLM)]',
-      ],
-    },
-    {
       id: 'p2',
-      name: 'Echo-word — multi-agent architecture',
-      tech: 'Kotlin',
+      name: 'Echo-word — agent orchestrator + specialized subagents',
+      tech: 'Kotlin · LLM (Claude / GPT / local model) · REST API · web scraping · RAG',
       description: [
-        'Custom orchestrator (multi-agent system) delegating tasks to specialized subagents',
-        'Agent coordination and responsibility decomposition — task routing and result aggregation (ReAct-like pattern)',
-        'Evidence of hands-on agentic workflows and LLM orchestration design',
+        'Reusable orchestrator (multi-agent system) that composes specialized subagents for a given goal: some crawl web pages, others collect data via APIs, others learn from the collected data (RAG / embeddings) — shared base, different roles',
+        'Working end-to-end flows built on the same pattern across domains: agentic job-offer discovery and selection, and car-listing search',
+        'Focused on a complete, repeatable agentic workflow and LLM orchestration — task decomposition, routing, result aggregation (ReAct-like pattern) — not on the number of agents',
       ],
       url: 'https://github.com/gronkil/Echo-word',
     },
     {
       id: 'p1',
-      name: 'AI Agent — GitHub + JIRA + LLM',
+      name: 'AI Agent — Jira → automated PR',
       tech: 'Kotlin · Spring WebFlux · Llama 3 (Ollama) · GitHub API · JIRA API',
       description: [
-        'Agent integrating GitHub and JIRA with a local LLM (Llama 3 via Ollama)',
+        'Agent pulls tasks from Jira, analyzes repository context and prepares a ready PR using a local LLM (Llama 3 via Ollama)',
         'Automatically fetches PRs and tasks, builds a prompt and generates a risk report',
         'Reactive architecture (application / domain / infrastructure)',
       ],

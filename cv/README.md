@@ -31,6 +31,8 @@ no tables / text boxes / images in the content layer → ATS-safe.
 (`/opt/pw-browsers/chromium-1194/chrome-linux/chrome`). On another machine, remove the
 `executablePath` and run `npx playwright install chromium` first.
 
-## TODO before sending
-- Fill in `[SYSTEM_11_SUBAGENTOW]` in `data.mjs` (production multi-agent system, 11 subagents:
-  stack + description + business impact), then re-run `npm run cv:build`.
+## Notes
+- The flagship agentic project is framed around **working flows**, not an agent headcount:
+  Echo-word is presented as a reusable orchestrator that composes specialized subagents
+  (web search / API collection / RAG), demonstrated by real flows (job-offer + car search),
+  with `AI Agent` (Jira → PR) as the deep-tech reactive-Kotlin instance.
