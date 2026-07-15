@@ -8,7 +8,9 @@
     "debug": "powershell -ExecutionPolicy Bypass -File start-debug.ps1",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "cv:build": "node cv/build.mjs",
+    "cv:verify": "node cv/verify.mjs"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -26,6 +28,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@fontsource/inter": "^5.2.8",
     "@playwright/mcp": "^0.0.76",
     "@tailwindcss/vite": "^4.2.4",
     "@types/node": "^24.12.2",
@@ -37,6 +40,7 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.5.0",
+    "pdfjs-dist": "^6.1.200",
     "tailwindcss": "^4.2.4",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.58.2",

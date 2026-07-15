@@ -38,3 +38,4 @@ start-debug.ps1
 
 # Prywatne pliki aplikacji o pracę (dane osobowe)
 applications/
+cv/out/*.html
