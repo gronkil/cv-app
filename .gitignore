@@ -30,11 +30,6 @@ dist-ssr
 
 # Claude Code local config (may contain tokens/keys)
 .claude/
-!.claude/commands/
 !.claude/settings.json
 !.claude/hooks/
 skills-lock.json
-start-debug.ps1
-
-# Prywatne pliki aplikacji o pracę (dane osobowe)
-applications/

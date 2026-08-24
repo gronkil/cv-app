@@ -13,10 +13,4 @@ cd "$CLAUDE_PROJECT_DIR"
 # Install project dependencies
 npm install
 
-# Ensure @playwright/mcp is available globally (uses pre-installed Chromium at /opt/pw-browsers)
-if ! which playwright-mcp &>/dev/null; then
-  echo "Installing @playwright/mcp globally..."
-  npm install -g @playwright/mcp@latest
-fi
-
 echo "=== Session start complete ==="
