@@ -2,76 +2,58 @@
 
 ## Purpose
 
-A single-page React application that lets users create and export a professional CV/resume. Users fill in their data through inline editing directly on the rendered CV layout, then download it as a PDF. Data persists automatically to `localStorage` — no backend, no accounts, no server.
+A "CV as code" single-page app. One typed data source renders both the
+on-screen CV and a one-page A4 PDF, in Polish or English. It is static: no
+backend, no accounts, no in-app editing, no `localStorage`. The CV is changed by
+editing data files (by an agent or by hand) and redeploying — not through a UI.
 
 ---
 
-## What the App Does (User Flow)
+## What the app does
 
-1. User opens the app and sees a pre-filled CV template (warm cream layout, navy/gold accents)
-2. Clicks **Edit** button (floating toolbar, bottom-right) → all text fields become editable inline
-3. Edits name, title, contact info, summary, work experience, education, skills, languages
-4. Adds or removes entries in any section via + / × buttons
-5. Clicks **Save** → fields return to styled view mode
-6. Clicks **Download PDF** → html2canvas captures the DOM, jsPDF generates the file
+1. Loads the CV content from two typed data modules (`defaultCv.ts` for Polish,
+   `defaultCvEn.ts` for English).
+2. Renders it as a two-column document: a navy sidebar and a light main column.
+3. A PL/EN toggle switches which data module is displayed.
+4. A "Download CV" button renders the same data through `@react-pdf/renderer`
+   and downloads a one-page A4 PDF.
+
+There is no edit mode. The only runtime state is the selected language and the
+PDF-export loading flag, both local to `App.tsx`.
 
 ---
 
-## Architecture at a Glance
+## Architecture at a glance
 
 ```
-App.tsx
-├── EditToolbar          ← floating action bar (Edit/Save/PDF/Reset)
-└── #cv-document div     ← the entire CV layout; this is what gets captured for PDF
-    ├── CvHeader         ← avatar, name, title, contact, social links
-    └── 2-column grid
-        ├── main column: CvSummary, CvExperience, CvEducation
-        └── sidebar:     CvSkills, CvLanguages
+main.tsx  (ThemeProvider + CssBaseline)
+└── App.tsx
+    ├── language toggle (PL / EN)            ← local useState
+    ├── Download CV button → usePdfExport    ← @react-pdf/renderer
+    └── #cv-document
+        ├── CvSidebar   ← avatar, contact, skills, languages, education, interests
+        └── CvMain      ← name/title, profile, experience, projects
 ```
 
-**State flows one way:** Zustand store → components. All writes go through store actions. `EditableField` is the only component that calls store actions directly.
+Data flows one way: `defaultCv.ts` / `defaultCvEn.ts` → components as props.
+There is no state store. The same `CvData` object also feeds `CvPdfDocument`, so
+the web page and the PDF are two renderings of one source and cannot drift apart.
 
 ---
 
-## State Management — `src/store/cvStore.ts`
-
-Single Zustand store, persisted to `localStorage` under key `cv-storage`.
-
-**Shape:**
-```typescript
-{
-  cv: CvData          // all CV content
-  isEditMode: boolean // global toggle
-}
-```
-
-**Actions (complete list):**
-| Action | What it does |
-|--------|-------------|
-| `toggleEditMode()` | flip edit/view mode |
-| `updatePersonal(field, value)` | update any PersonalInfo field |
-| `addExperience()` | append blank experience entry |
-| `updateExperience(id, field, value)` | update one field of one entry |
-| `removeExperience(id)` | delete by UUID |
-| `addEducation()` / `updateEducation()` / `removeEducation()` | same pattern |
-| `addSkill()` / `updateSkill()` / `removeSkill()` | same pattern |
-| `addLanguage()` / `updateLanguage()` / `removeLanguage()` | same pattern |
-| `resetCv()` | overwrite with `defaultCv` from `src/data/defaultCv.ts` |
-
----
-
-## Data Model — `src/types/cv.types.ts`
+## Data model — `src/types/cv.types.ts`
 
 ```typescript
 PersonalInfo {
   name, title, email, phone, location,
-  linkedin, github, avatarUrl, summary
+  linkedin, github, website, avatarUrl, summary
 }
 
-ExperienceEntry { id, company, role, startDate, endDate, description }
+ExperienceEntry { id, company, role, startDate, endDate, description: string[] }
 EducationEntry  { id, school, degree, field, startDate, endDate }
-SkillEntry      { id, name, level }          // level: 1–5 (renders as filled bars)
-LanguageEntry   { id, language, level }      // level: string ("Native", "C1", etc.)
+SkillEntry      { id, name, level, category }   // level 1–5 → filled bars, grouped by category
+LanguageEntry   { id, language, level }         // level string ("Native"/"B1"…) → progress bar
+ProjectEntry    { id, name, tech, description: string[], url? }
 
 CvData {
   personal: PersonalInfo
@@ -79,92 +61,89 @@ CvData {
   education: EducationEntry[]
   skills: SkillEntry[]
   languages: LanguageEntry[]
+  interests: string[]
+  projects: ProjectEntry[]
 }
 ```
 
----
-
-## Key Components
-
-### `EditableField` — `src/components/editor/EditableField.tsx`
-The single most important component. Reads `isEditMode` from the store.
-- **View mode:** renders a `<span>` with styled text
-- **Edit mode:** renders `<input>` (single line) or `<textarea>` (multiline)
-- Takes an `onSave` callback that calls the appropriate store action
-- Used everywhere text is editable
-
-### `EditToolbar` — `src/components/editor/EditToolbar.tsx`
-Fixed-position floating bar. Three buttons:
-- **Reset** — calls `resetCv()`, guarded by confirmation
-- **PDF** — calls `usePdfExport()` hook
-- **Edit / Save** — calls `toggleEditMode()`
-
-### `usePdfExport` — `src/hooks/usePdfExport.ts`
-1. Disables edit mode (so inputs become spans)
-2. Waits 300ms for React to re-render
-3. `html2canvas` captures `#cv-document`
-4. `jsPDF` builds the PDF (splits across pages if tall)
-5. Re-enables edit mode if it was active before
-6. Saves as `<name>-cv.pdf`
+Contact rows render only when the field is non-empty (e.g. an empty `linkedin`
+is simply omitted). Skills are grouped by `category`, in array order — the first
+category listed appears first, so ordering in the data controls emphasis.
 
 ---
 
-## Styling Rules
+## Key components
 
-- **Tailwind CSS v4** via `@tailwindcss/vite` plugin — no `tailwind.config.js`
-- **Color palette (60-30-10):**
-  - 60% background: `#F5F4F0` (warm cream)
-  - 30% surfaces/headers: `#1C2333` (deep navy)
-  - 10% accent: `#C9A84C` (matte gold) — used on links, buttons, skill bars
-- `.no-print` class hides the toolbar during PDF export
-- **Framer Motion** used for staggered entrance animations on all list items
+### `CvMain` — `src/components/cv/CvMain.tsx`
+Name, title, gold accent rule, then Profile (summary), Work Experience and
+Personal Projects. Each experience/project bullet comes from a `description[]`.
 
----
+### `CvSidebar` — `src/components/cv/CvSidebar.tsx`
+Avatar (initials), contact (email, location, website, GitHub, LinkedIn),
+skills grouped by category with 1–5 bars, languages with progress bars,
+education, interests.
 
-## Seed Data — `src/data/defaultCv.ts`
+### `CvPdfDocument` — `src/components/pdf/CvPdfDocument.tsx`
+The A4 PDF layout using `@react-pdf/renderer` primitives (`Page`, `View`,
+`Text`, `Link`, `StyleSheet`). It mirrors the web sections. Fonts are Roboto,
+registered from Google Fonts. Keep the output on a single A4 page — spacing
+constants here are tuned for that, so re-check after adding content.
 
-Polish-language placeholder CV shown to new users (or after reset). Contains:
-- Placeholder personal info ("Twoje Imię i Nazwisko", Frontend Developer)
-- 2 experience entries, 1 education entry
-- 6 skills (React, TypeScript, Node.js, Tailwind CSS, GraphQL, Docker)
-- 3 languages (Polish native, English C1, German B1)
-
-All IDs generated with `crypto.randomUUID()` at module load time.
-
----
-
-## Common Tasks
-
-**Add a new CV section** (e.g. Certifications):
-1. Add types to `cv.types.ts`
-2. Add array + actions to `cvStore.ts`
-3. Add seed entries to `defaultCv.ts`
-4. Create `src/components/cv/CvCertifications.tsx` using `CvSection` + `EditableField`
-5. Mount it in `App.tsx` inside `#cv-document`
-
-**Change a field label or placeholder:**
-Edit the relevant component in `src/components/cv/`.
-
-**Change color palette:**
-Update Tailwind utility classes globally — grep for `#C9A84C`, `#1C2333`, `#F5F4F0`.
-
-**PDF export broken / blank:**
-Check that `#cv-document` div ID is present in `App.tsx`. The hook targets this selector.
+### `usePdfExport` — `src/hooks/usePdfExport.tsx`
+`pdf(<CvPdfDocument …/>).toBlob()` → object URL → programmatic download as
+`<Name>_CV.pdf`. Toggles an `isExporting` flag while running.
 
 ---
 
-## What NOT to Change
+## Prerender / SEO
 
-- The `id="cv-document"` attribute on the root CV div — PDF export depends on it
-- The 300ms delay in `usePdfExport` — it waits for React to flush edit→view DOM changes
-- Zustand persist key `cv-storage` — changing it loses all user data in existing sessions
+The app is client-rendered, so `npm run build` adds a static prerender step:
+
+1. `vite build` — the client bundle and `dist/index.html`.
+2. `vite build --ssr src/entry-server.tsx --outDir dist-ssr` — an SSR module
+   that renders the default (Polish) CV with `react-dom/server` and extracts
+   MUI critical CSS via `@emotion/server`.
+3. `scripts/prerender.mjs` — injects that HTML and CSS into `dist/index.html`
+   and deletes `dist-ssr`.
+
+Result: crawlers and link-preview bots receive the full CV text and styling
+without executing JavaScript. `index.html` also carries the title, description,
+Open Graph and Twitter tags, and `public/` holds `og-image.png`, `robots.txt`
+and `sitemap.xml`.
 
 ---
 
-## Dev Commands
+## Styling
+
+- MUI v9 via the `sx` prop and a shared theme (`src/theme.ts`). No Tailwind.
+- Palette (60-30-10): `#F5F4F0` cream background, `#1C2333` navy surface,
+  `#C9A84C` gold accent.
+- `src/index.css` is a minimal reset plus print rules.
+
+---
+
+## What NOT to change
+
+- `id="cv-document"` on the root CV element — the prerender targets `#root`, and
+  this id anchors the document region.
+- The single-A4-page constraint of the PDF — verify it after any content change.
+- Ground truth: do not add technologies, employers, dates, certifications or
+  metrics that the CV's facts do not already support.
+
+## What NOT to add back
+
+This repo previously carried a private job-application pipeline (scraping,
+auto-apply, SMTP) and personal credentials. Those were removed from the tree and
+from git history. Do not reintroduce private data, credentials, or that pipeline
+into this public repository.
+
+---
+
+## Dev commands
 
 ```bash
 npm run dev      # Vite dev server (hot reload)
-npm run build    # tsc + Vite production build
-npm run preview  # preview the production build locally
+npm run build    # tsc + Vite build + SSR prerender → dist/
+npm run preview  # preview the production build
+npm run lint     # eslint
 ```
