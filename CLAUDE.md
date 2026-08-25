@@ -12,8 +12,8 @@ no persistence. Built to be edited by an agent, not through a UI.
 - Build-time prerender via Vite SSR + `react-dom/server` + `@emotion/server`
 - Deploy: GitHub Actions → FTPS to home.pl (`mateusz-markowski.kapatech.pl`)
 
-Note: `zustand`, `sonner`, `tailwindcss` may appear in dependency history but
-are not used by the app; MUI `sx` + theme is the only styling system.
+Styling is MUI `sx` + theme only (no Tailwind). There is no state-store or
+toast library — the app holds its small UI state locally in `App.tsx`.
 
 ## Color palette (60-30-10)
 - 60% background: `#F5F4F0` (warm cream)
