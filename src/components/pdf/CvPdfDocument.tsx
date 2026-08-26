@@ -47,7 +47,7 @@ const s = StyleSheet.create({
   },
   sidebar: {
     width: '33%',
-    padding: 20,
+    padding: 16,
   },
   avatar: {
     width: 72,
@@ -75,7 +75,7 @@ const s = StyleSheet.create({
   sidebarDivider: {
     borderBottomWidth: 1,
     borderBottomColor: DIVIDER_DARK,
-    marginVertical: 11,
+    marginVertical: 8,
   },
   contactText: {
     color: LIGHT,
@@ -161,10 +161,10 @@ const s = StyleSheet.create({
   main: {
     width: '67%',
     backgroundColor: MAIN_BG,
-    padding: 24,
+    padding: 20,
   },
   name: {
-    fontSize: 26,
+    fontSize: 23,
     fontWeight: 700,
     color: NAVY,
     lineHeight: 1.1,
@@ -183,8 +183,8 @@ const s = StyleSheet.create({
     height: 3,
     backgroundColor: GOLD,
     borderRadius: 2,
-    marginTop: 9,
-    marginBottom: 15,
+    marginTop: 6,
+    marginBottom: 10,
   },
   mainSectionRow: {
     flexDirection: 'row',
@@ -206,13 +206,13 @@ const s = StyleSheet.create({
     letterSpacing: 1.5,
   },
   summary: {
-    fontSize: 8.5,
+    fontSize: 8.2,
     color: BODY,
-    lineHeight: 1.75,
-    marginBottom: 13,
+    lineHeight: 1.5,
+    marginBottom: 9,
   },
   mainDivider: {
-    marginBottom: 11,
+    marginBottom: 8,
   },
   expHeader: {
     flexDirection: 'row',
@@ -261,13 +261,17 @@ const s = StyleSheet.create({
   bulletText: {
     fontSize: 7.5,
     color: BODY,
-    lineHeight: 1.6,
+    lineHeight: 1.45,
     flex: 1,
   },
   expGap: {
-    marginVertical: 9,
+    marginVertical: 5,
   },
 })
+
+function stripProtocol(url: string): string {
+  return url.replace(/^https?:\/\//, '').replace(/\/$/, '')
+}
 
 function langPercent(level: string): string {
   const map: Record<string, number> = {
@@ -301,6 +305,12 @@ export function CvPdfDocument({ data, lang }: Props) {
           {personal.email && <Text style={s.contactText}>{personal.email}</Text>}
           {personal.phone && <Text style={s.contactText}>{personal.phone}</Text>}
           {personal.location && <Text style={s.contactText}>{personal.location}</Text>}
+          {personal.website && (
+            <Link src={personal.website} style={s.contactLink}>{stripProtocol(personal.website)}</Link>
+          )}
+          {personal.github && (
+            <Link src={personal.github} style={s.contactLink}>{stripProtocol(personal.github)}</Link>
+          )}
           {personal.linkedin && (
             <Link src={personal.linkedin} style={s.contactLink}>LinkedIn</Link>
           )}
@@ -403,7 +413,8 @@ export function CvPdfDocument({ data, lang }: Props) {
           ))}
 
           {projects.length > 0 && (
-            <View break style={{ paddingTop: 48 }}>
+            <View style={{ marginTop: 11 }}>
+              <View style={s.mainDivider} />
               <View style={s.mainSectionRow}>
                 <View style={s.mainSectionDot} />
                 <Text style={s.mainSectionLabel}>{t.projects}</Text>

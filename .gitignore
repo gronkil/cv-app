@@ -16,6 +16,7 @@ node_modules
 dist
 dist-ssr
 *.local
+.claude/user-profile.json
 
 # Editor directories and files
 .vscode/*
@@ -30,11 +31,6 @@ dist-ssr
 
 # Claude Code local config (may contain tokens/keys)
 .claude/
-!.claude/commands/
 !.claude/settings.json
 !.claude/hooks/
 skills-lock.json
-start-debug.ps1
-
-# Prywatne pliki aplikacji o pracę (dane osobowe)
-applications/

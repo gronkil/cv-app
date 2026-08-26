@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mateusz-markowski.kapatech.pl/sitemap.xml

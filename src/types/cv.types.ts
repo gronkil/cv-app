@@ -6,6 +6,7 @@ export interface PersonalInfo {
   location: string
   linkedin: string
   github: string
+  website: string
   avatarUrl: string
   summary: string
 }

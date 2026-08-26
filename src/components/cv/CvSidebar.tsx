@@ -2,6 +2,8 @@ import { Box, Avatar, Typography, Stack, Divider, Chip, LinearProgress } from '@
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined'
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined'
 import LinkedInIcon from '@mui/icons-material/LinkedIn'
+import GitHubIcon from '@mui/icons-material/GitHub'
+import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined'
 import type { CvData } from '../../types/cv.types'
 import type { Lang } from '../../i18n/labels'
 import { labels } from '../../i18n/labels'
@@ -47,6 +49,12 @@ export function CvSidebar({ data, lang }: Props) {
         )}
         {personal.location && (
           <ContactRow icon={<LocationOnOutlinedIcon sx={{ fontSize: 15 }} />} text={personal.location} />
+        )}
+        {personal.website && (
+          <ContactRow icon={<LanguageOutlinedIcon sx={{ fontSize: 15 }} />} text={stripProtocol(personal.website)} href={personal.website} />
+        )}
+        {personal.github && (
+          <ContactRow icon={<GitHubIcon sx={{ fontSize: 15 }} />} text={stripProtocol(personal.github)} href={personal.github} />
         )}
         {personal.linkedin && (
           <ContactRow icon={<LinkedInIcon sx={{ fontSize: 15 }} />} text="LinkedIn" href={personal.linkedin} />
@@ -194,6 +202,10 @@ function ContactRow({ icon, text, href }: { icon: React.ReactNode; text: string;
     )
   }
   return <Box>{inner}</Box>
+}
+
+function stripProtocol(url: string): string {
+  return url.replace(/^https?:\/\//, '').replace(/\/$/, '')
 }
 
 function langLevelToPercent(level: string): number {
